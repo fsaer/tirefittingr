@@ -207,7 +207,7 @@ myPlot = add_markers(myPlot, data = mGridPlot, x = ~SA, y = ~FY,
 show(myPlot)
 ```
 
-Let's create a second data frame to plot for our second data set, then plot it.
+Let's create a second data frame for our second data set, then plot it.
 ```{r}
 #Create a matrix that is easy to plot
 mGridPlot2 = createFitDataFrame(FYPurePacejka2002, "parameters", SA = SAplot, 
@@ -223,14 +223,15 @@ show(myPlot)
 
 While a better splitting app is currently 
 being developed, the splitTireData function works. It can do multiple files 
-very quickly.
+very quickly. The new split files will be saved in the same folder that the 
+original files were in.
 
 ```{r eval = FALSE}
 #Open window to pick files
-lRunNamesSplit = splitTireData(P = 6.894*c(8,10,12,14), verbose = TRUE)
+lRunNamesSplit = splitTireDataAndSave(P = 6.894*c(8,10,12,14), verbose = TRUE)
 # 
 #Input file paths, use forward slashes in file paths in R!
-#lRunNamesSplit = splitTireData(c("C:/file1.dat", "C:/file2.dat"),
+#lRunNamesSplit = splitTireDataAndSave(c("C:/file1.dat", "C:/file2.dat"),
                                P = 6.894*c(8,10,12,14), verbose = TRUE)
 
 ```
