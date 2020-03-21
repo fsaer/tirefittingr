@@ -2,11 +2,12 @@
 # GETTING STARTED
 ## Install
 ### (With admin rights on the computer)
-1. **Download/Install R**. I recommend you get 3.6.1, and **NOT necessarily the latest
-    version** since not all packages are compatible with latest version.
-    https://cran.r-project.org
-"Download R for windows" > "Base" or "Install R for the first time" > lower on the page pick "Previous Releases" and get 3.6.1. 
-Install.
+1. **Download/Install R**. https://cran.r-project.org
+    At the moment, it works with the latest version, 3.6.3.
+    If you have issues, from https://cran.r-project.org
+    "Download R for windows" > "Base" or "Install R for the first time" > 
+    lower on the page pick "Previous Releases" and get 3.6.3. 
+    **Install**.
 2. **Download/Install RStudio**, the development environment (IDE). https://www.rstudio.com/products/rstudio/download/#download
 3. **Download/Install RTools** https://cran.r-project.org/bin/windows/Rtools/ 
  Get the green, "recommended" version. 
