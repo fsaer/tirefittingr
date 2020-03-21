@@ -1,0 +1,10 @@
+.Rproj.user/*
+dataignore/*
+.Rhistory
+.RData
+.Rproj.user
+.RData
+.Rhistory
+tests/testthat/Rplots.pdf
+.Rhistory
+.RData

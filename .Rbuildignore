@@ -1,0 +1,10 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\examples\$
+^ReadMe.txt$
+^LICENSE.txt$
+^dataignore$
+^docs$
+^Readme.md$
+^man/*\.html$
+^R/NoBuild\.R$
