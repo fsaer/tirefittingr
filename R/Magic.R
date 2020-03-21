@@ -353,13 +353,13 @@ attr(FXPurePacejka2002.NoIA, "outputName") = "FX"
 #'   \dontrun{
 #'   #split into files containing pressures 8, 10, 12, and 14 psi
 #'   #with a .dat TTC data file
-#'   lRunNamesSplit = splitTireData( P = c(55.2,68.9,82.7,96.5))
-#'   lRunNamesSplit = splitTireData( P = 6.894*c(8,10,12,14))
+#'   lRunNamesSplit = splitTireDataAndSave( P = c(55.2,68.9,82.7,96.5))
+#'   lRunNamesSplit = splitTireDataAndSave( P = 6.894*c(8,10,12,14))
 #'   }
 #'
 #' @importFrom rlang .data
 #' @importFrom zoo rollmean
-splitTireData = function(svRunPaths = NULL,
+splitTireDataAndSave = function(svRunPaths = NULL,
                          svRunNames = NULL,
                          ...,
                          verbose = TRUE,

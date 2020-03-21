@@ -1,6 +1,7 @@
 
-library(usethis)
+if (FALSE){
 
+library(usethis)
 
 #Not included
 fLOESSFitting = function(){
@@ -226,3 +227,4 @@ updatelFittingSetup = function(){
 #
 # x(FYPurePacejka2002)
 
+}
