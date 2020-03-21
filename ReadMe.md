@@ -19,7 +19,7 @@
          
 ## Start Using the Package to Analyze Data
 Install R and Rstudio (See above) 
-Open the program "RStudio", **Not**  "R x64 3.6.1"/etc.
+Open the program "RStudio", **Not** "R x64 3.6.3"/etc.
 
 **Note:** This is to use the package to analyze tires. This is NOT for further 
 developing the package.
@@ -59,10 +59,20 @@ In Rstudio, create a new **empty** project to work in (File > new project).
 Create a new directory and New Project. Do **not** use the tirefittingr github
 package zip/unzipped folder as your directory.
 
-If you haven't already. download the github repo. 
-Navigate to and open tirefittingr/man/notebook.html
+Once you have a new, empty project, go file > New File > R Script. 
+
+### Running through examples
+#### Option A
+View online at 
+https://htmlpreview.github.io/?https://github.com/fsaer/tirefittingr/blob/master/docs/Notebook.nb.html
+
+#### Option B
+Download the github repo. 
+https://github.com/fsaer/tirefittingr
+Navigate to and open fsaer/tirefittingr/docs/notebook.nb.html
 in a web browser. This will run you through examples.
 
+### Last Thing to get you started
 You probably want to start your scripts with the following code to 
 load some useful packages that we've installed into memory so they 
 can be used.
@@ -94,8 +104,10 @@ install.packages("packageName"). For example:
 install.packages("plotly")
 
 ```
+
 To load into memory use library(packageName).
-This code is often placed at the top of your script because it must be run everytime the R process is restarted.
+This code is often placed at the top of your script because it must be run 
+everytime the R process is restarted.
 ```
 library(devtools)
 library(plyr)
@@ -119,7 +131,7 @@ install.packages("knitr") # for making markdown notebooks
 4. Restart Rstudio
 5. Open the tirefittingr project in Rstudio (file>open project, select .Rproj file 
 within the unzipped git repo folder)
-6. Attempt to run a test using ctrl+shft+T) or in the top right window on the build tab select more>test package. Test before doing commits. In the commit comments comment on the status of all the tests. "Tests:O20/F0/W0/S0".
+6. Attempt to run a test using ctrl+shft+T or in the top right window on the build tab select more>test package. Test before doing commits. In the commit comments comment on the status of all the tests. Ex. "Tests:O20/F0/W0/S0". Or if you ran a devtools::check(), comment C:_/_/_
 7. Load package  with devtools::load_all(".") or ctrl+shft+L
     Do this after making any changes, and before using the functions/scripts that have changed.
     This will execute ALL of the code in the package.
