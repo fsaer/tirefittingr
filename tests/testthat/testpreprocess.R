@@ -48,14 +48,14 @@ test_that("Split Data Function Works",{
         stop("File Not found: ", normalizePath(pathReadSplit))
     }
 
-    expect_error(splitTireData(pathReadSplit,
+    expect_error(splitTireDataAndSave(pathReadSplit,
                              P = c(55.2,68.9,82.7,96.5),
                              FZ = c(11,32),
                              verbose = FALSE,
                              bSaveBatchNames = FALSE),
                  "fSplitData Can only handle ONE variable to split by")
 
-    dfSplitDataRuns = splitTireData(pathReadSplit,
+    dfSplitDataRuns = splitTireDataAndSave(pathReadSplit,
                                     P = c(55.2,68.9,82.7,96.5),
                                     verbose = FALSE,
                                     bSaveBatchNames = FALSE)
