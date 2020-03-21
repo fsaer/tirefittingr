@@ -153,7 +153,7 @@ plotGoodnessOfFit = function(dfPlotData, lCurveParameters, lPlotSetup){
             dfTemp2 <- as.data.frame(lPlotSetup$lConst)
             dfTemp3 <- data.frame(sSweepTemp = mySweep[r])
             names(dfTemp3) <- lPlotSetup$sSweep
-            lTempVars <- as.list(rowr::cbind.fill(dfTempVars,dfTemp2, dfTemp3))
+            lTempVars <- as.list(cbind(dfTempVars,dfTemp2, dfTemp3))
             lTempVars[["parameters"]] <- as.numeric(lCurveParameters)
 
             y <- do.call(lPlotSetup$fFitFunction, args = lTempVars)
@@ -580,8 +580,9 @@ plotRunConditionsPlotly = function(
     }
 
     dataLong = dfData %>%
-        tidyr::pivot_longer(-.data$ET) %>%
-        transform(id = as.integer(factor("name")))
+        tidyr::pivot_longer(-.data$ET)
+
+    dataLong$id = as.numeric(factor(dataLong$name))
 
     p = plotly::plot_ly(dataLong, x = ~ET, y = ~value, color = ~name, colors = "Dark2",
                 yaxis = ~paste0("y", id)) %>%
@@ -589,8 +590,6 @@ plotRunConditionsPlotly = function(
         plotly::subplot(nrows = max(dataLong$id), shareX = TRUE)
 
     if (bShow) methods::show(p)
-    message("Plotted Run Conditions using plotly. To see the goodness of fit ",
-        "plot, switch the bottom right window from 'Viewer' to 'Plots'.")
     return(p)
 
 }

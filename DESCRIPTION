@@ -8,29 +8,24 @@ License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
-    data.table,
-    DEoptim,
-	dplyr,
-    ggplot2,
-    IDPmisc,
-	magrittr,
+    data.table (>= 1.12.8),
+    DEoptim (>= 2.2-4),
+	dplyr (>= 0.8.3),
+    IDPmisc (>= 1.1.19),
+	magrittr (>= 1.5),
 	methods,
-	parallel,
-	plotly,
-	plyr,
-	processx,
-	RColorBrewer,
-    rowr,
-    rstudioapi,
-	rgl,
-	rlang,
-	tools,
-	tidyr,
-	tibble,
-	zoo
+	parallel (>= 3.5.1),
+	plotly (>= 4.9.1),
+	plyr (>= 1.8.5),
+	RColorBrewer (>= 1.1-2),
+	rlang (>= 0.4.2),
+	tools (>= 3.5.1),
+	tidyr (>= 1.0.0),
+	zoo (>= 1.8-6)
 Depends:
 	R (>= 3.5)
 Suggests:
+	ggplot2,
 	testthat,
 	usethis,
 	lintr,

@@ -8,9 +8,9 @@
 "Download R for windows" > "Base" or "Install R for the first time" > lower on the page pick "Previous Releases" and get 3.6.1. 
 Install.
 2. **Download/Install RStudio**, the development environment (IDE). https://www.rstudio.com/products/rstudio/download/#download
-3. **Download/Install RTools** https://cran.r-project.org/bin/windows/Rtools/
+3. **Download/Install RTools** https://cran.r-project.org/bin/windows/Rtools/ 
+ Get the green, "recommended" version. 
 
-## Install
 ### But if you don't have admin rights on the computer
 1. Follow instructions here: https://rpubs.com/tomhopper/windows_nonadmin_install
          This will lead you to download and unpack the zip files for both R,
@@ -18,26 +18,28 @@ Install.
          
 ## Start Using the Package to Analyze Data
 Install R and Rstudio (See above) 
+Open the program "RStudio", **Not**  "R x64 3.6.1"/etc.
 
 **Note:** This is to use the package to analyze tires. This is NOT for further 
 developing the package.
 
 ### Install Other useful Packages
-copy the following code into the console (Bottom left window) within RStudio:
+copy the following code into the console (Bottom/left window) within RStudio:
 ```
 install.packages("plotly")
 install.packages("plyr")
 install.packages("dplyr")
 install.packages("magrittr")
 install.packages("devtools")
-
-library(devtools)   # you will have to put this code at the start of a script
-
-#This won't work until project is public repo.
-#install_github("b-magic/tirefittingr")  
 ```
-### Install the tirefittingr package
-Until the package is on a public repo, you'll have to clone/download 
+
+### Install tirefittingr
+#### Option A. Through the console. Run the following:
+```
+devtools::install_github("fsaer/tirefittingr")  
+```
+#### Option B. Manually install tirefittingr
+You'll have to clone/download 
 the repo (See the big green button on the github webpage for this package) 
 **As a ZIP File**, then open Rstudio.
 

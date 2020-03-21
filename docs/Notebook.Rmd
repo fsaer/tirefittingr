@@ -1,0 +1,238 @@
+---
+title: "tirefittingr Notebook"
+output:
+  html_notebook: default
+  html_document:
+    df_print: paged
+  pdf_document: default
+---
+
+
+Disclaimer: All data and fit curves shown in this notebook are fictional. 
+
+THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
+IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
+ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+
+
+# Install
+### Install R and RStudio
+see the readme.md file in the root directory. 
+https://github.com/fsaer/tirefittingr
+
+### Install tirefittingr
+Make sure you have downloaded and installed the package if you haven't already.
+Installing only needs to be done once on a computer.
+
+```{r eval=FALSE}
+install.packages("devtools")
+devtools::install_github("fsaer/tirefittingr") 
+
+install.packages("plotly") #now is also the time to install plotly if you haven't already
+```
+
+# Load Packages
+This must be done every r-session, so this code is often
+at the top of every script.
+```{r message=FALSE, warning=FALSE, include=TRUE}
+library(tirefittingr)
+library(plotly)
+```
+
+# Settings
+We are going to speed up the solver a bit for this example. This will reduce the
+quality of the fit.
+```{r}
+    options(
+        tirefittingr.iParallelCores = 1,
+        tirefittingr.iEvolIterMax = 30, 
+        tirefittingr.iDataPoints = 3000,
+        tirefittingr.sSavePlotPath = FALSE,
+        tirefittingr.bPlotRunConditions = TRUE,
+        tirefittingr.sSummaryExportPath = NA)
+```
+
+At a minimum, we need to set the options telling the program whether we are 
+fitting we need to set the starting population and tell it which fitting 
+equation to use.
+```{r}
+#Required options
+#options(tirefittingr.sdfStartPop = "dfStartParFY")
+#options(tirefittingr.sfFittingFunction = "FYPurePacejka2002")
+
+# To save time, the function below will set the above options for us, as 
+# well as a pre-processing function and plotting function specific to FY.
+setFYPure2002()
+
+# #If we wanted to analyze FX, we could do the following
+# setFXPure2002.wIA()
+
+```
+Now we are ready to use the tire fitting function. 
+
+# Fitting
+For this example, we are using 2 built in data sets of fictious data
+```{r}
+dfFitSummary = fitTires(c("ABCrun1LatPreProccessed", "ABCrun2LatPreProccessed"))
+```
+After fitting, we can look at the output plots. In the run conditions plots, 
+we can check that our tire got up to temperature, that it actually contains
+IA sweeps, and the pressure is what we expected. 
+
+In the goodness of fit plots, we can see how closely our fitted curve matches
+the raw data. 
+
+# Using fitTires()
+Running fitTires() without any arguments will open a dialog box to pick files. 
+Make sure if you have setFYPure2002, then you are selecting FY files or vice 
+versa!
+```{r eval=FALSE, include=TRUE}
+setFYPure2002() #setFXPure2002.wIA()
+
+dfFitSummary = fitTires()
+```
+
+As shown earlier, fitTires, can accept names of data frames that exist in memory
+```{r eval=FALSE, include=TRUE}
+setFYPure2002() #setFXPure2002.wIA()
+
+
+dfFitSummary = fitTires("ABCrun1LatPreProccessed")
+dfFitSummary = fitTires(c("ABCrun1LatPreProccessed", "ABCrun2LatPreProccessed"))
+#c() joins objects into a vector
+```
+
+Last, but **most importantly**, fitTires() can **accept file paths**
+```{r eval=FALSE, include=TRUE}
+setFYPure2002() #setFXPure2002.wIA()
+
+#Always use forward slashes in file paths in R!
+dfFitSummary = fitTires("C:/users/fsaer/data/rawData1.dat")
+dfFitSummary = fitTires(c("C:/users/fsaer/data/rawData1.dat", 
+                          "C:/users/fsaer/data/rawData2.dat"))
+
+```
+
+We can also pass in a vector of **names** of the tire files in, to help us remember 
+what they are later.
+```{r eval=FALSE, include=TRUE}
+setFYPure2002() #setFXPure2002.wIA()
+
+dfFitSummary = fitTires("ABCrun1LatPreProccessed", "ABC Tire on 13in Rim")
+dfFitSummary = fitTires(c("ABCrun1LatPreProccessed", "ABCrun2LatPreProccessed"), 
+                    c("ABC Tire1", "ABC Tire2" ))
+
+```
+
+We were storing our results in dfFitSummary. We can view these by clicking on 
+the variable name in the environment window (usually top right), or with the 
+command `View(dfFitSummary)`. 
+
+We can also save this to a file with the following.
+```{r eval=FALSE, include=TRUE}
+#Always use forward slashes in file paths in R!
+write.csv(dfFitSummary, "C:/TireFittingSummary.csv")
+
+```
+
+We could have automatically saved
+to a csv file by setting option tirefittingr.sSummaryExportPath equal to a 
+string of a folder path before running fitTires().
+```{r eval=FALSE, include=TRUE}
+print(getwd()) #get the working directory
+
+#enter a full file path using forward slashes / not backslashes.
+#options(tirefittingr.sSummaryExportPath = "C:/users")
+options(tirefittingr.sSummaryExportPath = getwd()) 
+fitTires()
+```
+
+For a full list of options see the help file for the fitTires() function:
+```{r eval=FALSE, include=TRUE}
+?fitTires
+```
+
+# Plotting Curves
+Feel free to switch to matlab or excel/vba from here. The equations 
+used are available on github at fsaer/tirefittingr/R/Magic.R or 
+https://github.com/fsaer/tirefittingr/blob/master/R/Magic.R.
+
+Now let's compare our two tires in basic FY vs Slip Angle plots. 
+First, we will decide what sweeps of parameters will will be plotting.
+Our pacejka equation requires `SA`, `FZ`, and `IA`, so we have to include them.
+```{r}
+#Using the results from:
+# setFYPure2002()
+# dfFitSummary = fitTires(c("ABCrun1LatPreProccessed", "ABCrun2LatPreProccessed"))
+
+SAplot = seq(from = -12, to = 12, by = 0.05) #Slip angle in degrees
+IAPlot = 0 #inclination angle in degrees
+# FZ0Plot = -1600 #Nominal FZ value. -1600 is a good number. 
+FZPlot = c(-250, -750, -1200) #FZ in Newtons
+IAPlot = 0
+    
+```
+
+The easiest way to create data frames that we can plot is by using the 
+createFitDataFrame function. This function will evaluate our fitting function, 
+in this case FYPurePAcejka2002, at every different combination of our SA, IA, 
+and FZ inputs. 
+
+We can learn more about this function with
+```{r eval = FALSE}
+?createFitDataFrame
+```
+
+After creating our data we'll create a matrix that is easy to plot
+```{r}
+mGridPlot = createFitDataFrame(FYPurePacejka2002, "parameters", SA = SAplot, 
+    FZ = FZPlot, IA = IAPlot, parameters = dfFitSummary[1, 9:ncol(dfFitSummary)])
+```
+
+Create a blank plot and set the legend at the top.
+```{r}
+myPlot = plotly::layout(plot_ly(), 
+                        legend = list(orientation = 'h', x = 0, y = 1.15))
+```
+
+Add markers to the plot
+```{r}
+myPlot = add_markers(myPlot, data = mGridPlot, x = ~SA, y = ~FY, 
+    name = dfFitSummary[1, 1], marker = list(color = "blue"))
+show(myPlot)
+```
+
+Let's create a second data frame to plot for our second data set, then plot it.
+```{r}
+#Create a matrix that is easy to plot
+mGridPlot2 = createFitDataFrame(FYPurePacejka2002, "parameters", SA = SAplot, 
+    FZ = FZPlot, IA = IAPlot, parameters = dfFitSummary[2, 9:ncol(dfFitSummary)])
+
+#Add markers to the plot
+myPlot = add_markers(myPlot, data = mGridPlot2, x = ~SA, y = ~FY, 
+    name = dfFitSummary[2, 1], marker = list(color = "red"))
+show(myPlot)
+    
+```
+
+
+While a better splitting app is currently 
+being developed, the splitTireData function works. It can do multiple files 
+very quickly.
+
+```{r eval = FALSE}
+#Open window to pick files
+lRunNamesSplit = splitTireData(P = 6.894*c(8,10,12,14), verbose = TRUE)
+# 
+#Input file paths, use forward slashes in file paths in R!
+#lRunNamesSplit = splitTireData(c("C:/file1.dat", "C:/file2.dat"),
+                               P = 6.894*c(8,10,12,14), verbose = TRUE)
+
+```
+
+

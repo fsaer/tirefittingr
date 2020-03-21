@@ -414,6 +414,15 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
           round((proc.time()["elapsed"] - dStartTime["elapsed"]) / 60.0,
                 digits = 2)))
     }
+
+    if (getOption("tirefittingr.sSavePlotPath", FALSE) &&
+        getOption("tirefittingr.bPlotRunConditions", default = FALSE)) {
+
+        message("Plotted Run Conditions using plotly. To see the ",
+                "goodness of fit plot, switch the bottom right ",
+                "window from 'Viewer' to 'Plots'.")
+    }
+
     if ( iParallelCores != 1) {parallel::stopCluster(clMyCluster)}
     #showConnections()
     #closeAllConnections() # causes issues with knitr
