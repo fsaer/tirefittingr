@@ -306,9 +306,9 @@ fFYPlot = function(dfPlotData, runSummary) {
         lPlotSetup$sPlotTitle = runSummary[i,1]
         #   paste(
         # runSummary[i,"Name"], "-row", rownames(runSummary[i,]), sep = "")
-        if (getOption("tirefittingr.sSavePlotPath", FALSE)) {
+        if (is.character(getOption("tirefittingr.sSavePlotPath", FALSE))) {
             lPlotSetup$sSavePath = paste(
-                getOption("tirefittingr.sSavePlotPath"),
+                normalizePath(getOption("tirefittingr.sSavePlotPath")), "/",
                 runSummary$Name[i], "-Row", rownames(runSummary[i,]), ".png",
                 sep = "")
         } else {lPlotSetup$sSavePath = NULL}
@@ -372,9 +372,9 @@ fFXPlot = function(dfPlotData, runSummary, IA = TRUE) {
     lPlotSetup$sPlotTitle = runSummary[i,1]
     # lPlotSetup$sPlotTitle = paste(
     #   runSummary[i,"Name"], "-row", rownames(runSummary[i,]), sep = "")
-    if (getOption("tirefittingr.sSavePlotPath", FALSE)) {
+    if (is.character(getOption("tirefittingr.sSavePlotPath", FALSE))) {
       lPlotSetup$sSavePath = paste(
-        getOption("tirefittingr.sSavePlotPath"),
+        getOption("tirefittingr.sSavePlotPath"), "/",
         runSummary$Name[i], "-Row", rownames(runSummary[i,]), ".png",
         sep = "")
     } else {lPlotSetup$sSavePath = NULL}
