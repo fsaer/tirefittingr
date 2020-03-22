@@ -371,10 +371,6 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
             row.names = FALSE)
       }
 
-      if (getOption("tirefittingr.bSavePlot", FALSE )) {
-          sSavePath = paste(svRunPaths[i],"-Row",i,".png",sep = "")
-      } else (sSavePath = NULL)
-
       if (modelSummary[i,"Status"] != "Fitted") {
         sPlotStatus = "Not plotted- Model did not fit."
         warning(sPlotStatus)
@@ -415,7 +411,7 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
                 digits = 2)))
     }
 
-    if (getOption("tirefittingr.sSavePlotPath", FALSE) &&
+    if (is.character(getOption("tirefittingr.sSavePlotPath", FALSE)) &&
         getOption("tirefittingr.bPlotRunConditions", default = FALSE)) {
 
         message("Plotted Run Conditions using plotly. To see the ",
