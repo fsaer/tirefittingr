@@ -308,7 +308,7 @@ fFYPlot = function(dfPlotData, runSummary) {
         # runSummary[i,"Name"], "-row", rownames(runSummary[i,]), sep = "")
         if (is.character(getOption("tirefittingr.sSavePlotPath", FALSE))) {
             lPlotSetup$sSavePath = paste(
-                normalizePath(getOption("tirefittingr.sSavePlotPath")), "/",
+                normalizePath(getOption("tirefittingr.sSavePlotPath")), "/", 
                 runSummary$Name[i], "-Row", rownames(runSummary[i,]), ".png",
                 sep = "")
         } else {lPlotSetup$sSavePath = NULL}
