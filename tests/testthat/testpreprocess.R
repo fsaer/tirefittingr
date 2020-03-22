@@ -25,6 +25,9 @@ test_that("Check checkTireRunList works", {
 
     pathTemp = "DOESNTEXIST_sdkfjasldfkj.dat"
     expect_warning(checkTireRunList(pathTemp), "does not exist")
+
+    pathTemp = "DOESNTEXIST_sdkfjasldfkj.dat"
+    expect_warning(checkTireRunList(c(path1, pathTemp), "does not exist"))
 })
 
 test_that("Reading TTC Data Works",{

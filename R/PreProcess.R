@@ -19,6 +19,8 @@
 checkTireRunList <- function(svInputFile = NULL, sDefaultPath = getwd()) {
 
     sAcceptableDataTypes <- c("dat","raw","csv", "txt")
+    k = 1
+    checkTireRunList = character()
 
     if (is.null(svInputFile)) {
         #print("Waiting for user to select file in new window. The window may hide behind rStudio, and may not appear in the taskbar.")
@@ -33,12 +35,20 @@ checkTireRunList <- function(svInputFile = NULL, sDefaultPath = getwd()) {
 
     for (i in seq(1:length(svInputFile))) {
         #not a batch
+        if (is.null(svInputFile[i])) {
+            warning("filepath in ", i, " index is NULL. Removing it.")
+            next
+        } else if (is.na(svInputFile[i])) {
+            warning("filepath in ", i, " index is NA Removing it.")
+            next
+        }
+
         if (exists(svInputFile[i])) {
             #string is of an object that exists in memory
             if(typeof(get(svInputFile[i])) != "list" ){
-                warning(svInputFile[i], " is not a dataframe/list. Removing it.")
-                svInputFile = svInputFile[-i]
-                i = i - 1
+                warning(svInputFile[i], " exists, but is not a dataframe.",
+                        "Removing it.")
+                next
             }
         } else {
             #string is file paths
@@ -56,13 +66,13 @@ checkTireRunList <- function(svInputFile = NULL, sDefaultPath = getwd()) {
                 warning("File ",
                      normalizePath(svInputFile[i], mustWork = FALSE),
                      " does not exist. Removing from list.")
-                svInputFile = svInputFile[-i]
-                i = i - 1
                 next
             }
         }
+        checkTireRunList[k] = svInputFile[i]
+        k = k + 1
     }
-    return(svInputFile)
+    return(checkTireRunList)
 }
 
 
