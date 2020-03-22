@@ -36,8 +36,10 @@ install.packages("devtools")
 
 ### Install tirefittingr
 #### Option A. Through the console. Run the following:
+Where "0.5.0" is the latest release number. To see the latest go to
+https://github.com/fsaer/tirefittingr/releases
 ```
-devtools::install_github("fsaer/tirefittingr")  
+devtools::install_github("fsaer/tirefittingr@0.5.0")  
 ```
 #### Option B. Manually install tirefittingr
 You'll have to clone/download 
