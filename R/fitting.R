@@ -197,7 +197,8 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
         Tavg = numeric(), Tsd = numeric(), RSS = numeric(),
         numberOfPoints = integer())
 
-    # sSummaryExportFolder = getOption("sSummaryExportFolder", NULL)
+    #no longer an option. Now an argument.
+    #sSummaryExportFolder = getOption("tirefittingr.sSummaryExportFolder", NULL)
     if (!is.null(sSummaryExportFolder)) {
         if (is.na(sSummaryExportFolder)) {
             sSummaryExportFolder = choose_directory(getwd())

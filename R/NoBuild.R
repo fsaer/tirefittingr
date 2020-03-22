@@ -222,6 +222,8 @@ updatelFittingSetup = function(){
 
 test123 = function() {
 clearTirefittingrOptions()
+
+set_test_options()
 setFYMF52()
 
 path1 = "C:/Users/benne/Documents/R/tirefittingr/dataignore/B1320run5.dat"

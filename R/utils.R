@@ -72,7 +72,6 @@ set_test_options = function(){
         tirefittingr.iDataPoints = 1000,   #4000  #using all the datapoints from the raw datafile would take forever to solve, so instead this many randomly selected points are used                                          # Data points to show in the plot only
         tirefittingr.sSavePlotPath = FALSE, #True saves plots as png, False displays graphs in RStudio
         tirefittingr.bPlotRunConditions = TRUE,
-        tirefittingr.sSummaryExportPath = NA,
         tirefittingr.verbose = FALSE)
 
     options(tirefittingr.testMode = TRUE)
