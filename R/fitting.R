@@ -91,7 +91,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
             Iterations = 0,
             Status = sMessage,
             stringsAsFactors = FALSE))
-    print(c(i, as.character(fModelSummary$Name[i]), fModelSummary$Status[i]))
+    print(c(i, as.character(fModelSummary$FileName[i]), fModelSummary$Status[i]))
     return(fModelSummary)
 }
 
@@ -257,8 +257,8 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
     # Timing
     dStartTime <- proc.time()  #store the current time to measure how long this takes to run
     dTimeEst <- getOption("tirefittingr.iEvolIterMax", 300) *
-        getOption("tirefittingr.iDataPoints", 4000) *  170 / 300 / 4000 / 180 /
-        iParallelCores
+        getOption("tirefittingr.iDataPoints", 4000) *  250 / 300 / 4000 / 180 /
+        iParallelCores^(0.8)
     if (getOption("tirefittingr.bDebugMode", FALSE)) {
       print("Debug mode: ON, if you don't want debug mode on,
             set bDebug to FALSE")
@@ -386,7 +386,7 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
       }
 
       #concatenate and print status of the run
-      if (bverb) {cat(i, sPlotStatus,as.character(modelSummary$Name[i]),"",
+      if (bverb) {cat(i, sPlotStatus,as.character(modelSummary$FileName[i]),"",
           modelSummary$RSS[i],"","\n" ,sep = "\t")
       }
 

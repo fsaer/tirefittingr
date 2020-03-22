@@ -219,12 +219,15 @@ updatelFittingSetup = function(){
     save(FXPure2002, file = "./data/FXPure2002.Rdata")
 
 }
-# x = function(fFunc){
-#
-#     browser()
-#     print()
-# }
-#
-# x(FYPurePacejka2002)
+
+test123 = function() {
+clearTirefittingrOptions()
+setFYMF52()
+
+path1 = "C:/Users/benne/Documents/R/tirefittingr/dataignore/B1320run5.dat"
+options(tirefittingr.sSavePlotPath = "C:/Users/benne/Documents/R/")
+
+fitTires(path1)
+}
 
 }
