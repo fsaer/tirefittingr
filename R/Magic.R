@@ -453,7 +453,6 @@ splitTireDataAndSave = function(svRunPaths = NULL,
                 #write a new data file
                 dSumRows = dSumRows + nrow(dfDataPart)
 
-                sSuffix = paste0("-", VarOutput, "-",sVarName)
                 sWriteSplitDataPath = paste0(
                     tools::file_path_sans_ext(sPathNameFull),
                     sSuffix,
