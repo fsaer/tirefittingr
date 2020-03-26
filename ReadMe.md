@@ -1,7 +1,8 @@
 
 # GETTING STARTED
 ## Install
-### (With admin rights on the computer)
+### Windows 
+#### (With admin rights on the computer)
 1. **Download/Install R**. https://cran.r-project.org
     At the moment, it works with the latest version, 3.6.3.
     If you have issues, from https://cran.r-project.org
@@ -12,11 +13,32 @@
 3. **Download/Install RTools** https://cran.r-project.org/bin/windows/Rtools/ 
  Get the green, "recommended" version. 
 
-### But if you don't have admin rights on the computer
+#### But if you don't have admin rights on the computer
 1. Follow instructions here: https://rpubs.com/tomhopper/windows_nonadmin_install
          This will lead you to download and unpack the zip files for both R,
          and Rstudio, then run the .exe files within the bin folder.
-         
+### Ubuntu / Linux
+Only tested this on Ubuntu 18.04
+Followed these instructions:
+https://www.digitalocean.com/community/tutorials/how-to-install-r-packages-using-devtools-on-ubuntu-18-04
+1. Download and install R from CRAN
+```
+sudo apt-get update
+sudo apt-get install r-base
+sudo apt-get install r-base-dev
+```
+2. Download and install Rstudio
+3. To install devtools, open a terminal and run:
+```
+sudo apt-get install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+sudo apt-get update
+sudo -i R
+```
+4. To install the package
+```
+devtools::install_github("fsaer/tirefittingr")
+```
+
 ## Start Using the Package to Analyze Data
 Install R and Rstudio (See above) 
 Open the program "RStudio", **Not** "R x64 3.6.3"/etc.
