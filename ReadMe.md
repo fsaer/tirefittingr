@@ -19,26 +19,50 @@
          and Rstudio, then run the .exe files within the bin folder.
 ### Ubuntu / Linux
 Only tested this on Ubuntu 18.04
-Followed these instructions:
-https://www.digitalocean.com/community/tutorials/how-to-install-r-packages-using-devtools-on-ubuntu-18-04
-1. Download and install R from CRAN
+1. Follow these instructions
+https://cran.r-project.org/bin/linux/ubuntu/README.html
+2. 
 ```
+sudo nano /etc/apt/sources.list
+
+## add the line below to the file. 
+## For Ubuntu version 18.04 See the R ubuntu readme
+deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/ 
+deb http://cran.utstat.utoronto.ca/bionic-backports main restricted universe
+## Save and exit (ctrl+o then ctrl+x)
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+
 sudo apt-get update
 sudo apt-get install r-base
 sudo apt-get install r-base-dev
 ```
-2. Download and install Rstudio
-3. To install devtools, open a terminal and run:
+2. Download and install Rstudio, although it didn't work for me. 
+
+Followed these instructions to install packages
+https://www.digitalocean.com/community/tutorials/how-to-install-r-packages-using-devtools-on-ubuntu-18-04
 ```
 sudo apt-get install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
 sudo apt-get update
 sudo -i R
 ```
-4. To install the package
+4. Option A To install the package
 ```
+# From within R
 devtools::install_github("fsaer/tirefittingr")
 ```
-
+5. Option B to install packages
+```
+#From command line
+sudo install git
+#navigate to a folder to clone the package to. I used /home/your_user_name/Documents/R-Projects
+mkdir /home/your_user_name/Documents/R-Projects
+cd /home/your_user_name/Documents/R-Projects
+git clone https://github.com/fsaer/tirefittingr/
+cd tirefittingr
+sudo R
+devtools::load_
+```
 ## Start Using the Package to Analyze Data
 Install R and Rstudio (See above) 
 Open the program "RStudio", **Not** "R x64 3.6.3"/etc.
