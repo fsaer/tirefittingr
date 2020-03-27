@@ -12,8 +12,11 @@ calculateRSS(svInputFile = NULL, parameters)
 \item{parameters}{dataframe or numeric vector. Pacejka parameters.}
 }
 \value{
-
+data frame. First column is RSS divided by number of datapoints.
+  Second column is number of data points.
 }
 \description{
-Calculates RSS Residuals Error between a pacejka Curve and data set
+Calculates RSS divided by the total number of data points in the full
+  data set. See \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}
+  {https://en.wikipedia.org/wiki/Residual_sum_of_squares}.
 }
