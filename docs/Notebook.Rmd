@@ -55,8 +55,7 @@ quality of the fit.
         tirefittingr.iEvolIterMax = 30, 
         tirefittingr.iDataPoints = 3000,
         tirefittingr.sSavePlotPath = FALSE,
-        tirefittingr.bPlotRunConditions = TRUE,
-        tirefittingr.sSummaryExportPath = NA)
+        tirefittingr.bPlotRunConditions = TRUE)
 ```
 
 At a minimum, we need to set the options telling the program whether we are 

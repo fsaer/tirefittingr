@@ -4,7 +4,8 @@
 \name{ABCrun2LatPreProccessed}
 \alias{ABCrun2LatPreProccessed}
 \title{tirefittingr built in datasets}
-\format{A data frame with 1451 rows and 8 variables:
+\format{
+A data frame with 1451 rows and 8 variables:
 \describe{
   \item{SA}{Slip Angle in degrees}
   \item{IA}{Inclination Angle in degrees}
@@ -14,7 +15,8 @@
   \item{FX}{Longitudinal Load in N}
   \item{SR}{Slip Ratio (unitless)}
   \item{P}{Pressure in KPa}
-}}
+}
+}
 \usage{
 ABCrun2LatPreProccessed
 }

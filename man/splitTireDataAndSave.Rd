@@ -73,6 +73,13 @@ Opens each data file from svRunNames, then splits all of the
   #split into files containing pressures 8, 10, 12, and 14 psi
   #with a .dat TTC data file
   lRunNamesSplit = splitTireDataAndSave( P = c(55.2,68.9,82.7,96.5))
+
+  #open a csv file, where the first column has complete file paths
+  #Note the file selection window often hides behind RStudio!
+  svFiles = read.csv(choose.files(), stringsAsFactors = FALSE)[,1]
+  if (!file.exists(svFiles[1])) {stop("File Doesn't Exist")} #check the file path is correct!
+
+  lRunNamesSplit = splitTireDataAndSave( P = c(55.2,68.9,82.7,96.5))
   lRunNamesSplit = splitTireDataAndSave( P = 6.894*c(8,10,12,14))
   }
 

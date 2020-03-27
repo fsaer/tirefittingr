@@ -6,5 +6,7 @@
 ^dataignore$
 ^docs$
 ^Readme.md$
+^News.md$
+^cran-comments.md$
 ^man/*\.html$
 ^R/NoBuild\.R$

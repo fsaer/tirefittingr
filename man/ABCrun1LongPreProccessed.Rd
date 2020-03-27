@@ -4,7 +4,8 @@
 \name{ABCrun1LongPreProccessed}
 \alias{ABCrun1LongPreProccessed}
 \title{tirefittingr built in datasets}
-\format{A data frame with 606 rows and 8 variables:
+\format{
+A data frame with 606 rows and 8 variables:
 \describe{
   \item{SL}{Slip Ratio (unitless)}
   \item{IA}{Inclination Angle in degrees}
@@ -14,7 +15,8 @@
   \item{TSTC}{Temperature in C}
   \item{FY}{Lateral Load in N}
   \item{P}{Pressure in KPa}
-}}
+}
+}
 \usage{
 ABCrun1LongPreProccessed
 }

@@ -4,7 +4,9 @@
 \name{dfStartParFY}
 \alias{dfStartParFY}
 \title{Data Frame of Starting Population for fitting FYPurePacejka2002}
-\format{A data frame}
+\format{
+A data frame
+}
 \usage{
 dfStartParFY
 }

@@ -4,21 +4,23 @@
 \alias{fitTires}
 \title{Main Tire Fitting Function}
 \usage{
-fitTires(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder = NULL)
+fitTires(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder = NA)
 }
 \arguments{
-\item{svRunPaths}{optional string vector. Defaults to NULL.
-Complete file path of a tire raw data file. NULL opens a file dialog box
+\item{svRunPaths}{optional string vector. Defaults to \code{NULL}.
+Complete file path of a tire raw data file. `NULL`` opens a file dialog box
 for the user to select files.}
 
-\item{svRunNames}{optional string vector. Defaults to NULL. String vector the
+\item{svRunNames}{optional string vector. Defaults to \code{NULL}. String vector the
 same length as svRunPaths. Run names for your future reference.
-Used as titles for plots. Also gets recorded in summary table. Default NULL
+Used as titles for plots. Also gets recorded in summary table. Default \code{NULL}
 uses the end of the file name.}
 
-\item{sSummaryExportFolder}{string. Defaults to NULL, which
-won't save anything. Folder to export the results summary of all of the fit
-data. Suggested to use \code{getwd()} to save to the working directory.}
+\item{sSummaryExportFolder}{string. Defaults to \code{NA}. Folder to export the
+results summary of all of the fit
+data. \code{NA} opens a folder selection window.
+\code{NULL} does not save.
+Suggested to use \code{getwd()} to save to the working directory.}
 }
 \value{
 data frame. Summary of each raw data file that was fit along with
@@ -46,7 +48,7 @@ Manually set with \code{options("tirefittingr.exampleOption" = value)}. Use
 To find out what an option is currently set as use
 \code{getOption("tirefittingr.exampleOption")}.
 \describe{
-\item{tirefittingr.coldCutoffTemp}{numeric. defaults to -Inf Used for
+\item{tirefittingr.coldCutoffTemp}{numeric. defaults to \code{-Inf} Used for
 removing the warmup from the start of a dataset. All data collected
 before the tires reach this temperature will be ignored.}
 \item{tirefittingr.iDataPoints}{integer. defaults to 4000. Number of
@@ -54,7 +56,7 @@ data points to use. Data will randomly sampled down to this many
 data point to speed up solve time.}
 \item{tirefittingr.iEvolIterMax}{integer. defaults to 300. Maximum
 number of iterations of the solver.}
-\item{tirefittingr.bFilterSAFromLongitudinal}{logical. defaults to TRUE.
+\item{tirefittingr.bFilterSAFromLongitudinal}{logical. defaults to \code{TRUE}.
 When pre-processing data for an FX fit, should the data be filtered
 so that only datapoints with -1 < SA < 1 be left?}
 \item{tirefittingr.sfFittingFunction}{string. The name of the fitting
@@ -62,7 +64,7 @@ function to use. Pre-installed options are \code{'FYPurePacejka2002'},
 \code{'FYPureMF52'}, \code{'FXPureMF52'}, \code{'FXPurePacejka2002.NoIA'}, and
 \code{'FXPurePacejka2002.wIA'}.}
 \item{tirefittingr.iParallelCores}{integer. defaults to 1. Number of
-cores to use. Assign NA to detect how many cores are available}
+cores to use. Assign \code{NA} to detect how many cores are available}
 \item{tirefittingr.sfPlot}{string of a function name.
 A plotting function to run after fitting to check quality of fit.
 Pre-installed options are \code{'fFYPlot'}, \code{'fFXPlot'}.}
@@ -72,8 +74,20 @@ also plots the run conditions.}
 A pre-processing function to apply to the data before fitting.
 Pre-installed options are \code{'FYPre'}, \code{'FXPre'}.}
 \item{tirefittingr.sfReadTireFile}{string of a function name. Defaults
-to 'readTTCData'. Pre-installed options are \verb{'readTTCData'`` and }'readCSVTireData'\verb{. Make your own by writing a wrapper function for \code{\link{readTireData}}. The function must have one argument that is the full path name of a raw data file, and must output a data frame. See \code{\link{readTTCData}}.\} \\item\{tirefittingr.sSavePlotPath\}\{string. defaults to FALSE. Entire path of location to save the plot. FALSE displays them in the rStudio graphics window.\} \\item\{tirefittingr.sdfStartPop\}\{string of the name of a data frame. A data frame of the starting population of pacejka coefficients. Pre-installed options are }'dfStartParFY'\verb{, and }'dfStartParFX'`.}
-\item{tirefittingr.verbose}{logical. Defaults to TRUE. False suppresses
+to 'readTTCData'. Pre-installed options are \code{'readTTCData'} and
+\code{'readCSVTireData'}. Make your own by writing a
+wrapper function for \code{\link{readTireData}}.
+The function must have one argument that is
+the full path name of a raw data file, and must output a data frame.
+See \code{\link{readTTCData}}.}
+\item{tirefittingr.sSavePlotPath}{string. defaults to \code{FALSE}. Entire path
+of location to save the plot. \code{FALSE} displays them in the rStudio
+graphics window.}
+\item{tirefittingr.sdfStartPop}{string of the name of a
+data frame. A data frame of the starting population of pacejka
+coefficients. Pre-installed options are \code{'dfStartParFY'},
+and \code{'dfStartParFX'}.}
+\item{tirefittingr.verbose}{logical. Defaults to \code{TRUE}. False suppresses
 most messages.}
 }
 }

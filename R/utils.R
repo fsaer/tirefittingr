@@ -1,5 +1,7 @@
 
-choose_directory = function(default, caption = 'Select data directory') {
+choose_directory = function(
+    default = getwd(), caption = 'Select data directory') {
+
     cat("Waiting for user to select a folder. Selection window may",
         "not appear on taskbar and may hide behind RStudio or other windows. ",
         "\n ")
@@ -11,7 +13,9 @@ choose_directory = function(default, caption = 'Select data directory') {
 }
 
 
-choose_files = function(default, caption = 'Select data directory') {
+choose_files = function(
+    default = getwd(), caption = 'Select data directory') {
+
     cat("Waiting for user to select files. Selection window may",
         "not appear on taskbar and may hide behind RStudio or other windows. ",
         "\n ")
@@ -19,6 +23,126 @@ choose_files = function(default, caption = 'Select data directory') {
         utils::choose.files(default, caption = caption)
     } else {
         tcltk::tk_choose.files(default, caption = caption)
+    }
+}
+
+#' Calculates RSS Residuals Error between a pacejka Curve and data set
+#'
+#' Calculates RSS divided by the total number of data points in the full
+#'   data set. See \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}
+#'   {https://en.wikipedia.org/wiki/Residual_sum_of_squares}.
+#' @param svInputFile string vector. Path names or names of data frames
+#' @param parameters dataframe or numeric vector. Pacejka parameters.
+#'
+#' @return data frame. First column is RSS divided by number of datapoints.
+#'   Second column is number of data points.
+#' @export
+calculateRSS = function(svInputFile = NULL, parameters) {
+    if (is.null(svInputFile)) {
+        #print("Waiting for user to select file in new window. The window may hide behind rStudio, and may not appear in the taskbar.")
+        svInputFile = choose_files(
+            default = paste(getwd()),
+            caption = "Select .csv/.raw/.dat file(s)")
+        if (length(svInputFile) == 0) {
+            stop("No File Selected. Exiting Function.")
+        }
+        message("File Selected.")
+    }
+    #read, formats, and validates data
+    fReadTire = getOption("tirefittingr.sfReadTireFile", "readTTCData")
+    if (!exists(fReadTire)) {
+        stop("Function ", fReadTire, " does not exist. Set the option with ",
+             "options(tirefittingr.sfReadTireFile = 'YOUR_FUNCTION_NAME'),",
+             " or set it back to the default of readTTCData with ",
+             "options(tirefittingr.sfReadTireFile) = NULL")
+    }
+    if(!checkRequiredOption("tirefittingr.sfFittingFunction", TRUE)) {
+        return(0)
+    }
+    fFittingFunction = get(getOption('tirefittingr.sfFittingFunction'))
+    fReadTire = get(fReadTire)
+    checkFittingFunctionAttr(fFittingFunction)
+
+    RSS = data.frame(residual = numeric(), nDataPoints = numeric())
+
+    # if (is.list(svInputFile)) {
+    #     #if a dataframe was directly passed
+    #     dfData = svInputFile
+    #     endLoop = 1
+    # } else if (typeof(svInputFile) == "character") {
+        endLoop = length(svInputFile)
+    # } else {
+    #     stop("Invalid data type")
+    # }
+
+    for (i in 1:endLoop) {
+
+        if (exists(svInputFile[i], where = parent.frame())) {
+            dfData = get(svInputFile[i], envir = parent.frame())
+                    #Raw data file was directly passed by name
+        } else {
+            dfData = fReadTire(svInputFile[i])
+        }
+        RSS[i,2] = nrow(dfData)
+
+        dfData = fDropColsThatArentArgs(dfData, fFittingFunction)
+        dfData = dplyr::rename(dfData,
+                        "vOutputActual" = attr(fFittingFunction, "outputName"))
+
+        if (is.list(parameters)) {
+            vParameters = unlist(parameters[i,])
+        } else {
+            vParameters = parameters
+        }
+
+        args = c(list(
+            vParameters = vParameters,
+            fFitFunction = fFittingFunction),
+            as.list(c(dfData)))
+
+        RSSError = do.call(
+            what = fOptimizeFunctionWrapper,
+            args = args
+        ) / RSS[i,2]
+
+        RSS$residual[i] = RSSError
+    }
+    return(RSS)
+}
+
+normalizePathwEndSlash = function(path, mustExist = FALSE) {
+
+    right = function(x,n){
+        substring(x,nchar(x)-n+1)
+    }
+    path = normalizePath(path, winslash = "/", mustWork = FALSE)
+    path = paste(path) # converts \\ to /
+    if (right(path,1) != "/") {
+        path = paste(path,"/", sep = "")
+    }
+    pathwSlash = path
+    pathNoSlash = substring(pathwSlash,1, nchar(pathwSlash)-1)
+
+    if (!(file.exists(pathwSlash) || (file.exists(pathNoSlash)))){
+        if (mustExist) {
+            stop("Folder doesn't exist: ", pathwSlash)
+        } else {
+            warning("Folder doesn't exist: ", pathwSlash)
+        }
+    }
+    return(path)
+}
+
+checkFittingFunctionAttr = function(fFittingFunction) {
+
+    if (is.null(attr(fFittingFunction, "parameterNames"))) {
+        stop("A attribute named 'parameterNames'is missing from the fitting",
+             " function. The fitting function is your pacejka or equivalent",
+             "function")
+    }
+    if (is.null(attr(fFittingFunction, "outputName"))) {
+        stop("A attribute 'outputName' is missing from the fitting function",
+             "The fitting function is your pacejka or equivalent function")
     }
 }
 

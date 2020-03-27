@@ -137,6 +137,8 @@ within the unzipped git repo folder)
 7. Load package  with devtools::load_all(".") or ctrl+shft+L
     Do this after making any changes, and before using the functions/scripts that have changed.
     This will execute ALL of the code in the package.
+8. Use lintr to get guidelines on how to properly format your code. 
+   `sSummaryExportFolder`.
 8. Install github desktop https://desktop.github.com/ or use Git with RStudio https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN
 
 # If you want to use the package and develop it!

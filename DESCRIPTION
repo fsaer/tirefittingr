@@ -3,12 +3,12 @@ Type: Package
 Title: Fitting and Analysis of Tire Data
 Version: 0.5.2
 Authors@R: person("Bennet", "Heidenreich", role = c("aut", "cre"), email = "bheidenr@uwo.ca") 
-Description: Contains tools for opening pre-processing, and curve fitting tire data using pacejka magic formula.
+Description: Contains tools for opening, pre-processing, curve fitting, and analyzing tire data using pacejka magic formula.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
-    data.table (>= 1.12.8),
+    data.table (>= 1.12.1),
     DEoptim (>= 2.2-4),
 	dplyr (>= 0.8.3),
     IDPmisc (>= 1.1.19),
@@ -30,4 +30,6 @@ Suggests:
 	usethis,
 	lintr,
 	roxygen2
-RoxygenNote: 7.0.2
+URL: https://github.com/fsaer/tirefittingr
+BugReports: https://github.com/fsaer/tirefittingr/issues
+RoxygenNote: 7.1.0
