@@ -22,15 +22,7 @@ fTireDEoptimWrapper = function(
   dfStartPop,
   clMyCluster = NULL) {
 
-  if (is.null(attr(fFittingFunction, "parameterNames"))) {
-      stop("A attribute named 'parameterNames'is missing from the fitting",
-           " function. The fitting function is your pacejka or equivalent",
-           "function")
-  }
-  if (is.null(attr(fFittingFunction, "outputName"))) {
-    stop("A attribute 'outputName' is missing from the fitting function",
-         "The fitting function is your pacejka or equivalent function")
-  }
+    checkFittingFunctionAttr(fFittingFunction)
 
   if (!all(attr(fFittingFunction, "parameterNames") %in%
            colnames(dfStartPop))) {
@@ -117,7 +109,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'   To find out what an option is currently set as use
 #'   `getOption("tirefittingr.exampleOption")`.
 #'   \describe{
-#'     \item{tirefittingr.coldCutoffTemp}{numeric. defaults to -Inf Used for
+#'     \item{tirefittingr.coldCutoffTemp}{numeric. defaults to `-Inf` Used for
 #'       removing the warmup from the start of a dataset. All data collected
 #'       before the tires reach this temperature will be ignored.}
 #'     \item{tirefittingr.iDataPoints}{integer. defaults to 4000. Number of
@@ -125,7 +117,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'       data point to speed up solve time.}
 #'     \item{tirefittingr.iEvolIterMax}{integer. defaults to 300. Maximum
 #'       number of iterations of the solver.}
-#'     \item{tirefittingr.bFilterSAFromLongitudinal}{logical. defaults to TRUE.
+#'     \item{tirefittingr.bFilterSAFromLongitudinal}{logical. defaults to `TRUE`.
 #'       When pre-processing data for an FX fit, should the data be filtered
 #'       so that only datapoints with -1 < SA < 1 be left?}
 #'     \item{tirefittingr.sfFittingFunction}{string. The name of the fitting
@@ -133,7 +125,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'       `'FYPureMF52'`, `'FXPureMF52'`, `'FXPurePacejka2002.NoIA'`, and
 #'       `'FXPurePacejka2002.wIA'`.}
 #'     \item{tirefittingr.iParallelCores}{integer. defaults to 1. Number of
-#'       cores to use. Assign NA to detect how many cores are available}
+#'       cores to use. Assign `NA` to detect how many cores are available}
 #'     \item{tirefittingr.sfPlot}{string of a function name.
 #'       A plotting function to run after fitting to check quality of fit.
 #'       Pre-installed options are `'fFYPlot'`, `'fFXPlot'`.}
@@ -143,33 +135,35 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'       A pre-processing function to apply to the data before fitting.
 #'       Pre-installed options are `'FYPre'`, `'FXPre'`.}
 #'     \item{tirefittingr.sfReadTireFile}{string of a function name. Defaults
-#'       to 'readTTCData'. Pre-installed options are `'readTTCData'`` and
+#'       to 'readTTCData'. Pre-installed options are `'readTTCData'` and
 #'       `'readCSVTireData'`. Make your own by writing a
 #'       wrapper function for \code{\link{readTireData}}.
 #'       The function must have one argument that is
 #'       the full path name of a raw data file, and must output a data frame.
 #'       See \code{\link{readTTCData}}.}
-#'     \item{tirefittingr.sSavePlotPath}{string. defaults to FALSE. Entire path
-#'       of location to save the plot. FALSE displays them in the rStudio
+#'     \item{tirefittingr.sSavePlotPath}{string. defaults to `FALSE`. Entire path
+#'       of location to save the plot. `FALSE` displays them in the rStudio
 #'       graphics window.}
 #'     \item{tirefittingr.sdfStartPop}{string of the name of a
 #'       data frame. A data frame of the starting population of pacejka
 #'       coefficients. Pre-installed options are `'dfStartParFY'`,
 #'       and `'dfStartParFX'`.}
-#'     \item{tirefittingr.verbose}{logical. Defaults to TRUE. False suppresses
+#'     \item{tirefittingr.verbose}{logical. Defaults to `TRUE`. False suppresses
 #'       most messages.}
 #'   }
 #'
-#' @param svRunPaths optional string vector. Defaults to NULL.
-#'   Complete file path of a tire raw data file. NULL opens a file dialog box
+#' @param svRunPaths optional string vector. Defaults to `NULL`.
+#'   Complete file path of a tire raw data file. `NULL`` opens a file dialog box
 #'   for the user to select files.
-#' @param svRunNames optional string vector. Defaults to NULL. String vector the
+#' @param svRunNames optional string vector. Defaults to `NULL`. String vector the
 #'   same length as svRunPaths. Run names for your future reference.
-#'   Used as titles for plots. Also gets recorded in summary table. Default NULL
+#'   Used as titles for plots. Also gets recorded in summary table. Default `NULL`
 #'   uses the end of the file name.
-#' @param sSummaryExportFolder string. Defaults to NULL, which
-#'   won't save anything. Folder to export the results summary of all of the fit
-#'   data. Suggested to use `getwd()` to save to the working directory.
+#' @param sSummaryExportFolder string. Defaults to `NA`. Folder to export the
+#'   results summary of all of the fit
+#'   data. `NA` opens a folder selection window.
+#'   `NULL` does not save.
+#'   Suggested to use `getwd()` to save to the working directory.
 #'
 #' @return data frame. Summary of each raw data file that was fit along with
 #'   parameters in alphabetical order.
@@ -183,7 +177,10 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #' }
 #' @md
 #' @importFrom rlang .data
-fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder = NULL) {
+fitTires <- function(
+    svRunPaths = NULL,
+    svRunNames = NULL,
+    sSummaryExportFolder = NA) {
 
     svRunPaths = checkTireRunList(svRunPaths) #NULL prompts user to select files
     if (is.null(svRunNames)) svRunNames = basename(svRunPaths)
@@ -197,20 +194,33 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
         Tavg = numeric(), Tsd = numeric(), RSS = numeric(),
         numberOfPoints = integer())
 
+
     #no longer an option. Now an argument.
     #sSummaryExportFolder = getOption("tirefittingr.sSummaryExportFolder", NULL)
     if (!is.null(sSummaryExportFolder)) {
         if (is.na(sSummaryExportFolder)) {
-            sSummaryExportFolder = choose_directory(getwd())
+            sSummaryExportFolder = choose_directory(getwd(),
+                "Select a folder to save results in, or cancel to not save.")
         }
+
+        if(is.na(sSummaryExportFolder)) {
+            #user cancelled
+            print("No folder selected. Results will not be saved to file.")
+            sSummaryExportPath = NULL
+        } else {
+        sSummaryExportFolder = normalizePathwEndSlash(sSummaryExportFolder,
+                                                      mustExist = TRUE)
+
         sSummaryExportPath = paste(
-            sSummaryExportFolder,"_",
+            sSummaryExportFolder,"_Summary-",
             gsub(Sys.time(), pattern = ":", replacement = ""),
-            "-Summary",
             sep = "")
+        }
+
     } else sSummaryExportPath = NULL
 
     bverb = getOption('tirefittingr.verbose', TRUE)
+    if (getOption('tirefittingr.testMode', FALSE)) {bverb = FALSE}
     # initialize parallel
     iParallelCores = getOption("tirefittingr.iParallelCores", default = 1)
     if (iParallelCores <= 0) {
@@ -321,6 +331,8 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
           lEvolParm <- as.list(fitModel$optim$bestmem)
           names(lEvolParm) <- names(dfStartPop)
 
+          RSS = calculateRSS("dfDataFull", fitModel$optim$bestmem)
+
           lastRun <- data.frame(
             RunName = svRunNames[i],
             FileName = basename(svRunPaths[i]),
@@ -332,7 +344,7 @@ fitTires <- function(svRunPaths = NULL, svRunNames = NULL, sSummaryExportFolder 
             Tsd = ifelse("TSTC" %in% colnames(dfDataProcessed),
               stats::sd(dfDataProcessed$TSTC),
               NA),
-            RSS = fitModel$optim$bestval,
+            RSS = RSS$residual,
             numberOfPoints = nrow(dfDataProcessed),
             as.data.frame(lEvolParm),
             stringsAsFactors = FALSE)

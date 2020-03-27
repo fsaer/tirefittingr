@@ -35,11 +35,15 @@ test_that("Check main fitting function works", {
     clearTirefittingrOptions()
     set_test_options()
     options(tirefittingr.testInput = "llaksdjfhl")
-    expect_output(fitTires(c(path1, path2)), "Quitting")
+    expect_output(
+        fitTires(c(path1, path2), sSummaryExportFolder = NULL),
+        "Quitting")
 
     options(tirefittingr.testInput = "Y")
     invisible(capture.output(
-    expect_Summarydataframe_success(fitTires(c(path1, path2)))))
+    expect_Summarydataframe_success(fitTires(c(path1, path2),
+                                             sSummaryExportFolder = NULL))))
+
 
     clearTirefittingrOptions()
     set_test_options()
@@ -48,15 +52,25 @@ test_that("Check main fitting function works", {
     #Don't really need this test anymore because the previous one does it
     #expect_Summarydataframe_success(fitTires(c(path1, path2)))
 
+    summary = fitTires(c(path1, path2), sSummaryExportFolder = NULL)
+    RSS = calculateRSS(c(path1,path2), summary[,9:26])
+
+
     #FX data input while FY settings are active
-    expect_warning(fitTires(c(path3, path4)),
+    expect_warning(fitTires(c(path3, path4),  sSummaryExportFolder = NULL),
                        "The standard deviation")
+    expect_error(
+        fitTires(path1, sSummaryExportFolder = "pathdoesntexistsaskdlfj"),
+        "Folder doesn't exist:")
+
 
     clearTirefittingrOptions()
     set_test_options()
     options(tirefittingr.testInput = "X")
     invisible(capture.output(
-        expect_Summarydataframe_success(fitTires(c(path3, path4)))))
+        expect_Summarydataframe_success(
+            fitTires(c(path3, path4), sSummaryExportFolder = NULL))))
+
     setFXPure2002.wIA()
 
     #Don't really need this test anymore because the previous one does it
@@ -65,13 +79,32 @@ test_that("Check main fitting function works", {
     #     expect_Summarydataframe_success()
 #
     #FY data input but FX settings are active
-    expect_warning(fitTires(c(path1, path2)),
+    expect_warning(fitTires(c(path1, path2), sSummaryExportFolder = NULL),
         "A common cause is setting the options for FX, but using FY data")
 
     setFXPure2002.NoIA()
     c(path3,path4) %>%
-        fitTires() %>%
+        fitTires(sSummaryExportFolder = NULL) %>%
         expect_Summarydataframe_success()
 
+
+
+    clearTirefittingrOptions()
 })
 
+
+testthat::test_that("Manual Tests (Folder Selection) for fitTires", {
+    skip("Skipping manual tests of folder selection")
+
+    clearTirefittingrOptions()
+    setFYPure2002()
+    options(tirefittingr.testMode = TRUE)
+    options(tirefittingr.testEndEarly = TRUE)
+
+    path1 = system.file("extdata", "ABCrun1Lat.dat",
+                        package = "tirefittingr", mustWork = TRUE)
+
+    expect_equal(fitTires(path1) , "Test Complete")
+
+    clearTirefittingrOptions()
+})
