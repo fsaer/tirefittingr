@@ -1,27 +1,27 @@
 Package: tirefittingr
 Type: Package
 Title: Fitting and Analysis of Tire Data
-Version: 0.5.2
+Version: 0.6.0
 Authors@R: person("Bennet", "Heidenreich", role = c("aut", "cre"), email = "bheidenr@uwo.ca") 
 Description: Contains tools for opening, pre-processing, curve fitting, and analyzing tire data using pacejka magic formula.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
-    data.table (>= 1.12.1),
-    DEoptim (>= 2.2-4),
-	dplyr (>= 0.8.3),
-    IDPmisc (>= 1.1.19),
-	magrittr (>= 1.5),
+    data.table,
+    DEoptim,
+	dplyr,
+    IDPmisc,
+	magrittr,
 	methods,
-	parallel (>= 3.5.1),
-	plotly (>= 4.9.1),
-	plyr (>= 1.8.5),
-	RColorBrewer (>= 1.1-2),
-	rlang (>= 0.4.2),
-	tools (>= 3.5.1),
-	tidyr (>= 1.0.0),
-	zoo (>= 1.8-6)
+	parallel,
+	plotly,
+	plyr,
+	RColorBrewer,
+	rlang,
+	tools,
+	tidyr,
+	zoo
 Depends:
 	R (>= 3.5)
 Suggests:
