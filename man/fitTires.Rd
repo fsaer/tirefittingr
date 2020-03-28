@@ -33,7 +33,7 @@ in the through the svRunPaths argument.
 \details{
 Opens each raw data file using \code{\link{readTireData}} (or a similar
 function if the option \code{tirefittingr.sfReadTireFile} is defined), then applies
-the pre-process function defined in \code{getOption("tirefittingr.sfPreProcess")}.
+the preprocess function defined in \code{getOption("tirefittingr.sfPreProcess")}.
 Using \code{\link[DEoptim:DEoptim]{DEoptim::DEoptim()}}, a differential evolution
 optimization algorithm, the starting population of
 parameters evolves to find those
@@ -57,7 +57,7 @@ data point to speed up solve time.}
 \item{tirefittingr.iEvolIterMax}{integer. defaults to 300. Maximum
 number of iterations of the solver.}
 \item{tirefittingr.bFilterSAFromLongitudinal}{logical. defaults to \code{TRUE}.
-When pre-processing data for an FX fit, should the data be filtered
+When preprocessing data for an FX fit, should the data be filtered
 so that only datapoints with -1 < SA < 1 be left?}
 \item{tirefittingr.sfFittingFunction}{string. The name of the fitting
 function to use. Pre-installed options are \code{'FYPurePacejka2002'},
@@ -71,7 +71,7 @@ Pre-installed options are \code{'fFYPlot'}, \code{'fFXPlot'}.}
 \item{tirefittingr.bPlotRunConditions}{logical. defaults to TRUE. TRUE
 also plots the run conditions.}
 \item{tirefittingr.sfPreProcess}{string of a function name.
-A pre-processing function to apply to the data before fitting.
+A preprocessing function to apply to the data before fitting.
 Pre-installed options are \code{'FYPre'}, \code{'FXPre'}.}
 \item{tirefittingr.sfReadTireFile}{string of a function name. Defaults
 to 'readTTCData'. Pre-installed options are \code{'readTTCData'} and

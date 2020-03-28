@@ -2,7 +2,7 @@
 % Please edit documentation in R/PreProcess.R
 \name{FYPre}
 \alias{FYPre}
-\title{Pre-Process Data For FY}
+\title{Preprocess Data For FY}
 \usage{
 FYPre(dfData)
 }

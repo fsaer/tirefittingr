@@ -162,13 +162,13 @@ checkRequiredOption = function(sOptionName,
         if (usrInput %in% c("y","Y")){
             setFYPure2002()
             cat("\nFunction setFYPure2002() was run. Starting population,",
-                    "fitting function, pre-process function, and plotting",
+                    "fitting function, preprocess function, and plotting",
                     "function set. Run setFYPure2002() before fitTires to",
                     "avoid this message in the future. See ?setFYPure2002().\n")
         } else if (usrInput %in% c("x","X")){
             setFXPure2002.wIA()
             cat("\nFunction setFXPure2002.wIA() was run. Starting population,",
-                    "fitting function, pre-process function, and plotting",
+                    "fitting function, preprocess function, and plotting",
                     "function set. Run setFXPure2002.wIA() before fitTires to",
                     "avoid this message in the future. See ",
                     "?setFXPure2002.wIA(). \n")

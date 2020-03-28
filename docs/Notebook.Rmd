@@ -67,7 +67,7 @@ equation to use.
 #options(tirefittingr.sfFittingFunction = "FYPurePacejka2002")
 
 # To save time, the function below will set the above options for us, as 
-# well as a pre-processing function and plotting function specific to FY.
+# well as a preprocessing function and plotting function specific to FY.
 setFYPure2002()
 
 # #If we wanted to analyze FX, we could do the following

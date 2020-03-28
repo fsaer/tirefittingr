@@ -2,7 +2,7 @@
 % Please edit documentation in R/PreProcess.R
 \name{FXPre}
 \alias{FXPre}
-\title{Pre-Process Data For FX}
+\title{Preprocess Data For FX}
 \usage{
 FXPre(dfData)
 }

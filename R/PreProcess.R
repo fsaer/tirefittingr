@@ -276,7 +276,7 @@ setFXPure2002.NoIA = function() {
             tirefittingr.sfPlot = "fFXPlot.NoIA")
 }
 
-#' Pre-Process Data For FY
+#' Preprocess Data For FY
 #'
 #' Filters out cold data depending on the setting for
 #' `options("tirefittingr.coldCutoffTemp")`
@@ -324,7 +324,7 @@ FYPre = function(dfData){
   return(dfData)
 }
 
-#' Pre-Process Data For FX
+#' Preprocess Data For FX
 #'
 #' Depending on the options for
 #' @param dfData data frame. Data to be processed
@@ -372,7 +372,7 @@ FXPre = function(dfData){
     return(dfData)
 }
 
-#' Basic Pre-Process for Tire Data
+#' Basic Preprocess for Tire Data
 #'
 #' Randomly reduces the number of data points to
 #'   `getOption("tirefittingr.iDataPoints")` if a value is set.

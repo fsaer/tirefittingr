@@ -94,7 +94,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'
 #' Opens each raw data file using \code{\link{readTireData}} (or a similar
 #'   function if the option `tirefittingr.sfReadTireFile` is defined), then applies
-#'   the pre-process function defined in `getOption("tirefittingr.sfPreProcess")`.
+#'   the preprocess function defined in `getOption("tirefittingr.sfPreProcess")`.
 #'   Using \code{\link[DEoptim:DEoptim]{DEoptim::DEoptim()}}, a differential evolution
 #'   optimization algorithm, the starting population of
 #'   parameters evolves to find those
@@ -118,7 +118,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'     \item{tirefittingr.iEvolIterMax}{integer. defaults to 300. Maximum
 #'       number of iterations of the solver.}
 #'     \item{tirefittingr.bFilterSAFromLongitudinal}{logical. defaults to `TRUE`.
-#'       When pre-processing data for an FX fit, should the data be filtered
+#'       When preprocessing data for an FX fit, should the data be filtered
 #'       so that only datapoints with -1 < SA < 1 be left?}
 #'     \item{tirefittingr.sfFittingFunction}{string. The name of the fitting
 #'       function to use. Pre-installed options are `'FYPurePacejka2002'`,
@@ -132,7 +132,7 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'     \item{tirefittingr.bPlotRunConditions}{logical. defaults to TRUE. TRUE
 #'       also plots the run conditions.}
 #'     \item{tirefittingr.sfPreProcess}{string of a function name.
-#'       A pre-processing function to apply to the data before fitting.
+#'       A preprocessing function to apply to the data before fitting.
 #'       Pre-installed options are `'FYPre'`, `'FXPre'`.}
 #'     \item{tirefittingr.sfReadTireFile}{string of a function name. Defaults
 #'       to 'readTTCData'. Pre-installed options are `'readTTCData'` and
@@ -308,8 +308,8 @@ fitTires <- function(
         fPreProcess = get(getOption('tirefittingr.sfPreProcess'))
         dfDataProcessed = fPreProcess(dfDataFull)
       } else {
-          warning("No Pre-processing function found!",
-                  "Set a pre-processing function with options(tirefittingr.",
+          warning("No Preprocessing function found!",
+                  "Set a preprocessing function with options(tirefittingr.",
                   "sfPreProcess = 'FYPre') or options(tirefittingr.",
                   "sfPreProcess = 'FXPre') or options(tirefittingr.",
                   "sfPreProcess = 'basicPre'). These will reduce the number",

@@ -2,7 +2,7 @@
 % Please edit documentation in R/PreProcess.R
 \name{basicPre}
 \alias{basicPre}
-\title{Basic Pre-Process for Tire Data}
+\title{Basic Preprocess for Tire Data}
 \usage{
 basicPre(dfData)
 }
