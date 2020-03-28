@@ -226,3 +226,103 @@ clearTirefittingrOptions = function() {
     options(tirefittingr.testEndEarly = NULL)
     options(tirefittingr.bDebugMode = NULL)
 }
+
+fDropColsThatArentArgs = function(
+    dfData,
+    fFittingFunction,
+    sColKeep = attr(fFittingFunction, "outputName")) {
+
+    svDataColName = colnames(dfData)
+    svFunctionArgs =  names(formals(fFittingFunction))
+
+    svRequiredArgs = names(formals(
+        fFittingFunction)[!nzchar(formals(fFittingFunction))] )
+
+    svNamesReqDiff = dplyr::setdiff(svRequiredArgs,svDataColName) #vPars
+
+    if (length(svNamesReqDiff) != 1) {
+        warning(
+            "Error matching fitting function arguments with dataset ",
+            "columns. All of the arguments without defaults of the fitting ",
+            "function (except the one argument containing the fitting ",
+            "parameters) must exactly match column names in the dataset. ",
+            "Unmatched arguments: ",
+            toString(svNamesReqDiff), " Dataset Columns: ",
+            paste(svDataColName), " A common cause is setting the options for ",
+            "FX, but using FY data. Ensure the correct setFYPure2002() or ",
+            "setFXPure2002.wIA() was run first." )}
+
+    svColsToKeep = dplyr::intersect(svFunctionArgs,svDataColName) #vPars
+    if (!is.na(sColKeep)) svColsToKeep = c(svColsToKeep, sColKeep)
+    return(dfData[,svColsToKeep])
+}
+
+#' Write Table to File With Header
+#'
+#' Writes a table to a text file using the header from an existing file. This
+#'   makes it easy to re-write data files into the same format as they were
+#'   received.
+#'
+#' @param x object to be written. Usually a data frame or matrix.
+#' @param file either a character string naming a file or a connection open for
+#'   writing. "" indicates output to the console. See \link[utils]{write.table}.
+#' @param sHeaderFile string. Filename of a file to copy the header from
+#' @param nRowHeader integer. Default is 3. Number of rows in the header in the
+#'   header file. This many rows will be copied from the header file and
+#'   inserted at the top of the new file.
+#' @param sep string. Default is "\\t" Values on each line of the file are
+#'   separated by this character. see \link[utils]{write.table}.
+#' @param verbose boolean. Default is FALSE. TRUE prints more messages in
+#'   console.
+#' @seealso \link[utils]{write.table} \link[utils]{read.table}
+#' @export
+#'
+writeFileWithHeader = function(x, file, sHeaderFile, nRowHeader = 3,
+                               sep = "\t", verbose = FALSE) {
+
+    if(!(file.exists(sHeaderFile))) {
+        stop(paste0("sHeaderFile Does not exists:", normalizePath(sHeaderFile)))
+    }
+    dfHeaders = utils::read.table(
+        file = sHeaderFile,
+        sep = sep, header = FALSE, as.is = TRUE, fill = TRUE,
+        nrows = nRowHeader, stringsAsFactors = FALSE)
+
+    iColDiff = ncol(x) - ncol(dfHeaders)
+    if (iColDiff > 0) {
+
+        iBestMatch = sum(colnames(x) %in% dfHeaders[1,])
+        iBestRow = 1
+        # print(paste0("Best Match:", iBestMatch, " BestRow:", iBestRow))
+
+        if (nRowHeader > 1) {
+            for (i in 2:nRowHeader) {
+                iMatches = sum(colnames(x) %in% dfHeaders[i,])
+                if (iMatches > iBestMatch) {
+                    #New match must beat the best match, so it there is a tie,
+                    # the first row is used
+                    iBestMatch = iMatches
+                    iBestRow = i
+                }
+                # print(paste0("Best Match:", iBestMatch, " BestRow:", iBestRow))
+            }
+        }
+        # dfHeaders = dplyr::bind_cols(dfHeaders, x, )
+        for (i in ncol(dfHeaders):(ncol(dfHeaders) + iColDiff)) {
+            dfHeaders[iBestRow,i] = colnames(x)[i]
+        }
+    }
+    if(ncol(dfHeaders) != ncol(x)) {
+        stop("writing error. ncol(dfHeader) not equal ncols(df) 'x'.")
+    }
+    utils::write.table(x = dfHeaders, file = file,
+                       row.names = FALSE, sep = sep, col.names = FALSE,
+                       quote = FALSE)
+    utils::write.table(x = x, file = file,
+                       append = TRUE , row.names = FALSE, sep = sep,
+                       col.names = FALSE, quote = FALSE)
+    if (verbose) {
+        cat("writing:", file, "\n - with ",
+            nrow(x),"rows of data\n")
+    }
+}

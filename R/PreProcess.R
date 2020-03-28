@@ -400,37 +400,6 @@ basicPre = function(dfData) {
         replace = FALSE)
 }
 
-fDropColsThatArentArgs = function(
-    dfData,
-    fFittingFunction,
-    sColKeep = attr(fFittingFunction, "outputName")) {
-
-    svDataColName = colnames(dfData)
-    svFunctionArgs =  names(formals(fFittingFunction))
-
-    svRequiredArgs = names(formals(
-        fFittingFunction)[!nzchar(formals(fFittingFunction))] )
-
-    svNamesReqDiff = dplyr::setdiff(svRequiredArgs,svDataColName) #vPars
-
-    if (length(svNamesReqDiff) != 1) {
-        warning(
-            "Error matching fitting function arguments with dataset ",
-              "columns. All of the arguments without defaults of the fitting ",
-              "function (except the one argument containing the fitting ",
-              "parameters) must exactly match column names in the dataset. ",
-              "Unmatched arguments: ",
-                  toString(svNamesReqDiff), " Dataset Columns: ",
-            paste(svDataColName), " A common cause is setting the options for ",
-            "FX, but using FY data. Ensure the correct setFYPure2002() or ",
-            "setFXPure2002.wIA() was run first." )}
-
-    svColsToKeep = dplyr::intersect(svFunctionArgs,svDataColName) #vPars
-    if (!is.na(sColKeep)) svColsToKeep = c(svColsToKeep, sColKeep)
-    return(dfData[,svColsToKeep])
-}
-
-
 #' Filters Cold Data from a Dataset
 #'
 #' @param dfData data frame containing a temperature column named `TSTC`.
@@ -459,3 +428,220 @@ filterColdData = function(
   }
   return(dfData)
 }
+
+#' Split Tire Data Files
+#'
+#' Splits Tire data files into multiple data files based on a passed parameter
+#'   and saves the new files.
+#'
+#' Opens each data file from svRunNames, then splits all of the
+#'   data into the closest match in the splitting parameter argument.
+#'   For example if the fitting parameter was `P = c(50,60,80)`, data points with
+#'   pressures from 0-45 kPa would be dropped. 45-54 kPa would be put in the
+#'   50 kPa, 55-69 kPa would be in the 60kPa file, 70-90 kPa would be in
+#'   the 80 kPa file, and data points with pressures of 91+ kPa would be
+#'   dropped. If, after filtering, a file would contain less than 1% of the size
+#'   of the original data, then that file is skipped instead of writing a csv
+#'   or recording it in the output dataframe. Note that even though units of
+#'   'psi' will appear in text output and file names, metric units (kPa) must
+#'   be passed into the function, and kPa will be in the output files.
+#'
+#'   The tire data is read using the function named in the settings
+#'   `getOption(tirefittingr.sfReadTireFile)`. If the option is not set (`NULL`),
+#'   then the default function `readTTCData` is used, which works for .dat
+#'   files from the TTC. For more on this option, see \code{\link{fitTires}}.
+#'
+#' @param svRunPaths optional string vector. Defaults to `NULL.`
+#'   Complete file path of a tire raw data file. NULL opens a file dialog box
+#'   for the user to select files.
+#' @param svRunNames optional string vector. Defaults to `NULL.` String vector the
+#'   same length as svRunPaths. Run names for your future reference.
+#'   Used as titles for plots. Also gets recorded in summary table. Default `NULL`
+#'   uses the end of the file name.
+#' @param ... named argument of a Numeric Vector containing at least two values,
+#'   with name corresponding to a column name of a tire data file.
+#'   Suggested Names: 'V', 'N', 'SA', 'IA', 'P', 'FZ', 'TSTC', 'SR'.
+#' @param  verbose boolean. Defaults to `TRUE`.
+#'   True prints messages in the console, while false does not.
+#' @param bSaveBatchNames boolean. Defaults to `FALSE`. `TRUE` saves output
+#'   to a csv file.
+#' @param k integer. Defaults to 10.
+#'   Rolling average window width. A rolling
+#'   average is applied to the named argument column before splitting.
+#'   set to 1 to disable. See `k` from
+#'   \code{\link[zoo:rollmean]{zoo::rollmean()}}
+#' @param nRowHeader see `rRowHeader` from \code{\link{writeFileWithHeader}}
+#' @return Returns Dataframe of full-path run names of newly created runs.
+#'   Second column contains copied `svRunNames`.
+#' @export
+#'
+#' @examples
+#'   \dontrun{
+#'   #split into files containing pressures 8, 10, 12, and 14 psi
+#'   #with a .dat TTC data file
+#'   lRunNamesSplit = splitTireDataAndSave( P = c(55.2,68.9,82.7,96.5))
+#'
+#'   #open a csv file, where the first column has complete file paths
+#'   #Note the file selection window often hides behind RStudio!
+#'   svFiles = read.csv(choose.files(), stringsAsFactors = FALSE)[,1]
+#'   if (!file.exists(svFiles[1])) {stop("File Doesn't Exist")} #check the file path is correct!
+#'
+#'   lRunNamesSplit = splitTireDataAndSave( P = c(55.2,68.9,82.7,96.5))
+#'   lRunNamesSplit = splitTireDataAndSave( P = 6.894*c(8,10,12,14))
+#'   }
+#'
+#' @importFrom rlang .data
+#' @importFrom zoo rollmean
+splitTireDataAndSave = function(svRunPaths = NULL,
+                                svRunNames = NULL,
+                                ...,
+                                verbose = TRUE,
+                                bSaveBatchNames = FALSE,
+                                k = 10,
+                                nRowHeader = 3) {
+
+  svRunPaths = checkTireRunList(svRunPaths) #NULL prompts user to select files
+  if (is.null(svRunNames)) svRunNames = basename(svRunPaths)
+  # dfRunNamesFullPath = NULL,
+
+  #    P = 6.89476*c(8.0, 10.0, 12.0, 14.0)
+  lSplitBy = list(...)
+  if (length(lSplitBy) > 1) {
+    stop("fSplitData Can only handle ONE variable to split by. Variables: ",
+         paste(as.list(names(lSplitBy)), collapse =", "))
+  } else if (length(lSplitBy) == 0) {
+    stop("fSplitData requires second argument- a value to split the data by.
+             For example 'P = c(68.9,82.7)")
+  }
+  dvSplitVal = lSplitBy[[1]]
+  sVarName = names(lSplitBy[1])
+  if (is.null(sVarName)) {
+    stop("The passed argument to split by must have a name that matches
+             a column name in the dataset. For example 'P = c(68.9,82.7)")
+  } else if (length(dvSplitVal) == 1) {
+    stop("Spliting data requires at least two buckets to split into.
+             So that the code can find out how wide to make each bucket.")
+  }
+
+  dDiff = base::diff(dvSplitVal)
+
+  dvLowCutoff = dvSplitVal - c(0.5*dDiff[1], 0.5*dDiff)
+  dvHighCutoff = dvSplitVal + c(0.5*dDiff, 0.5*dDiff[length(dDiff)])
+
+  dfRunNamesOutput = data.frame(FileName = character(),
+                                RunName = character(),
+                                stringsAsFactors = FALSE)
+
+  sfTireFunction =
+    getOption("tirefittingr.sfReadTireFile", "readTTCData")
+  if (!exists(sfTireFunction)) {
+    stop(fTireFunction, " function does not exist. Reset to the default of",
+         " readTTCData with options(tirefittingr.sfReadTireFile = NULL)")
+  }
+  for (i in seq(from = 1, to = length(svRunPaths))) {
+    dSumRows = 0
+    sPathNameFull = svRunPaths[i]
+    fTireFunction = get(sfTireFunction)
+    dfDataFull = fTireFunction(sPathNameFull) #read, formats, and validates data
+    dNRowDfData = nrow(dfDataFull)
+
+    if (!(sVarName %in% base::colnames(dfDataFull))) {
+      stop("The passed variable name '", sVarName, "' could not be
+                     found in the column names of the dataset: ",
+           paste(base::colnames(dfDataFull), collapse = ", "))
+    }
+
+    # dfHeaders =    utils::read.table(
+    #     file = sPathNameFull,
+    #     sep = "\t", header = FALSE, as.is = TRUE, fill = TRUE,
+    #     nrows = 3, stringsAsFactors = FALSE)
+
+    dfDataFull$VarRollAvg = zoo::rollmean(
+      dfDataFull[,sVarName],
+      k, align = "center", fill = c("extend", NA, NA))
+
+    for (j in seq(from = 1, to = length(dvSplitVal))) {
+      dfDataPart = dplyr::filter(
+        dfDataFull, .data$VarRollAvg < dvHighCutoff[j])
+      dfDataPart = dplyr::filter(
+        dfDataPart, .data$VarRollAvg > dvLowCutoff[j])
+
+      if (sVarName == "P") {
+        VarOutput = paste(round(dvSplitVal[j]/6.89476, 1),"psi",
+                          sep = "")
+        sSuffix = paste0("-", VarOutput)
+      } else {
+        VarOutput = round(dvSplitVal[j], 1)
+        sSuffix = paste0("-", VarOutput, "-",sVarName)
+      }
+
+      if (nrow(dfDataPart) > (0.01*dNRowDfData)) {
+        #write a new data file
+        dSumRows = dSumRows + nrow(dfDataPart)
+
+        sWriteSplitDataPath = paste0(
+          tools::file_path_sans_ext(sPathNameFull),
+          sSuffix,
+          ".", tools::file_ext(sPathNameFull))
+        dfDataPart = dplyr::select(dfDataPart, -"VarRollAvg")
+
+        writeFileWithHeader(
+          dfDataPart,
+          file = sWriteSplitDataPath,
+          sHeaderFile = sPathNameFull,
+          nRowHeader = nRowHeader,
+          verbose = verbose)
+
+        dfRunNamesOutput = plyr::rbind.fill(
+          dfRunNamesOutput,
+          data.frame(
+            FileName = sWriteSplitDataPath,
+            RunName = paste0(svRunNames[i], sSuffix)))
+      } else {
+        #file doesn't have enough data points in this pressure range to
+        #be worth creating a file
+        if (verbose) {
+          cat("Not enough rows ( <", round(0.01*dNRowDfData),
+              ") of Data to write ", sVarName, " = ",VarOutput, "\n",
+              "(Original file didn't have enough data points",
+              "matching this splitby criteria)\n")
+        }
+        next
+      }
+    }
+    dataKeptPercent = round(100 * dSumRows / dNRowDfData, 1)
+    if (verbose) {
+      cat("Split Complete.\n")
+      cat(dataKeptPercent,
+          "% of original data file was written into the new split file(s)",
+          "\n")
+    }
+    if (dataKeptPercent < 25) {
+      warning(cat("Only ", dataKeptPercent,
+                  "% of original data file was written into the new split file(s)"
+      ))
+    }
+
+  }
+
+  sBatchNameExportPath = paste(
+    dirname(svRunPaths[i]),"/SplitOutputBatchNames.csv",
+    sep = "")
+
+
+  dfRunNamesOutput[] = lapply(dfRunNamesOutput, as.character) #convert factor
+
+  if (bSaveBatchNames) {
+    dfBatchNamesExport = dfRunNamesOutput
+    dfBatchNamesExport[,2] = basename(dfBatchNamesExport[,2])
+    utils::write.table(
+      dfBatchNamesExport,
+      file = sBatchNameExportPath,
+      row.names = FALSE, col.names = FALSE, sep = ",", quote = FALSE)
+    if (verbose) {
+      cat("BatchNames file written to: ", sBatchNameExportPath, "\n")
+    }
+  }
+  return(dfRunNamesOutput)
+}
+
