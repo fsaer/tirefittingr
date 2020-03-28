@@ -41,6 +41,7 @@ test_that("Reading TTC Data Works",{
 
 test_that("Split Data Function Works",{
 
+    testthat::skip_on_cran("Skip writing files")
     pathReadSplit = system.file("extdata", "ABCrunLat.dat",
                                   package = "tirefittingr", mustWork = TRUE)
 
