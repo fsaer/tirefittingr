@@ -71,8 +71,7 @@ Check out the source code on the tirefittingr github in /R/Magic.R.
 
 Works in the SAE Sign conventions: Fz <0, (See Race Car Vehicle Dynamics
 by Milliken, p39).
-  or \url{https://www.oreilly.com/library/view/tire-and-vehicle/
-  9780080970165/images/F150016bm01-9780080970165.jpg}
+  or \url{https://www.oreilly.com/library/view/tire-and-vehicle/9780080970165/images/F150016bm01-9780080970165.jpg}
 }
 \examples{
  params = c(20,5.89,-1.23,-12.23,1.87,-0.75,0.08,90.44,0,0.02,

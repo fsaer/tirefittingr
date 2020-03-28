@@ -10,8 +10,7 @@
 #'
 #' Works in the SAE Sign conventions: Fz <0, (See Race Car Vehicle Dynamics
 #' by Milliken, p39).
-#'   or \url{https://www.oreilly.com/library/view/tire-and-vehicle/
-#'   9780080970165/images/F150016bm01-9780080970165.jpg}
+#'   or \url{https://www.oreilly.com/library/view/tire-and-vehicle/9780080970165/images/F150016bm01-9780080970165.jpg}
 #'
 #' @param FZ numeric. Normal Load in Newtons.
 #' @param SA numeric. Slip Angle in degrees.
@@ -139,8 +138,7 @@ attr(FYPureMF52, "outputName") = "FY"
 #'
 #' Works in the SAE Sign conventions: Fz <0, (See Race Car Vehicle Dynamics
 #' by Milliken, p39).
-#'   or \url{https://www.oreilly.com/library/view/tire-and-vehicle/
-#'   9780080970165/images/F150016bm01-9780080970165.jpg}
+#'   or \url{https://www.oreilly.com/library/view/tire-and-vehicle/9780080970165/images/F150016bm01-9780080970165.jpg}
 #'
 #' @inheritParams FYPurePacejka2002
 #' @param SL numeric. Slip Ratio in SAE standard, unitless.
@@ -234,8 +232,7 @@ attr(FXPureMF52, "outputName") = "FX"
 #'
 #' Works in the SAE Sign conventions: Fz <0, (See Race Car Vehicle Dynamics
 #'   by Milliken, p39).
-#'   or \url{https://www.oreilly.com/library/view/tire-and-vehicle/
-#'   9780080970165/images/F150016bm01-9780080970165.jpg}
+#'   or \url{https://www.oreilly.com/library/view/tire-and-vehicle/9780080970165/images/F150016bm01-9780080970165.jpg}
 #'
 #' @inheritParams FYPurePacejka2002
 #' @param SL numeric. Slip Ratio in SAE standard, unitless.
