@@ -128,12 +128,12 @@ plotGoodnessOfFit = function(dfPlotData, lCurveParameters, lPlotSetup){
 
             mySweep <- IDPmisc::peaks(hHistSweep$mids,hHistSweep$counts)#, minPH = 20) #, minPW=20) #detects peaks of the histogram. minPh and minPW can adjust the minimum height and width for something to be counted as a peak
 
-            suppressWarnings(
+            #suppressWarnings(
 
                 if (length(mySweep$y) == 1) {
                     #prevents an error in the event there's only one peak
                     mySweep = mySweep$y
-                } else if (is.na(mySweep$y)) {
+                } else if (is.na(mySweep$y[1])) {
                     mySweep = 0
                 } else {
                     #reorder the peaks... I think its by height
@@ -141,7 +141,7 @@ plotGoodnessOfFit = function(dfPlotData, lCurveParameters, lPlotSetup){
                     mySweep = removeSimilarValues(mySweep, dWithin = 150)
                     mySweep = mySweep[1:5] #select only the top 5 peaks
                 }
-            )
+            #)
         } else mySweep = mean(dfPlotData[subsetA,lPlotSetup$sSweep])
         # loop through the sweep
         for (r in seq(1, length(mySweep))) {
