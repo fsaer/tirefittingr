@@ -93,8 +93,8 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'   in the through the svRunPaths argument.
 #'
 #' Opens each raw data file using \code{\link{readTireData}} (or a similar
-#'   function if the option tirefittingr.sfReadTireFile is defined), then applies
-#'   the pre-process function defined in getOption("tirefittingr.sfPreProcess").
+#'   function if the option `tirefittingr.sfReadTireFile` is defined), then applies
+#'   the pre-process function defined in `getOption("tirefittingr.sfPreProcess")`.
 #'   Using \code{\link[DEoptim:DEoptim]{DEoptim::DEoptim()}}, a differential evolution
 #'   optimization algorithm, the starting population of
 #'   parameters evolves to find those
@@ -142,10 +142,10 @@ appendBadRun <- function(sMessage, fModelSummary, svRunPaths, svRunNames, i) {
 #'       the full path name of a raw data file, and must output a data frame.
 #'       See \code{\link{readTTCData}}.}
 #'     \item{tirefittingr.sSavePlotPath}{string. defaults to `FALSE`. Entire path
-#'       of location to save the plot. `FALSE` displays them in the rStudio
+#'       of location to save the plot. `FALSE` displays them in the RStudio
 #'       graphics window.}
 #'     \item{tirefittingr.sdfStartPop}{string of the name of a
-#'       data frame. A data frame of the starting population of pacejka
+#'       data frame. A data frame of the starting population of Pacejka
 #'       coefficients. Pre-installed options are `'dfStartParFY'`,
 #'       and `'dfStartParFX'`.}
 #'     \item{tirefittingr.verbose}{logical. Defaults to `TRUE`. False suppresses

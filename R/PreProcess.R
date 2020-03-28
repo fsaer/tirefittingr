@@ -143,7 +143,7 @@ readTireData = function(sRunFileName, iColNamesRow = 1,
 #' Reads TTC .dat Data Files
 #'
 #' A Wrapper for \code{\link{readTireData}}
-#'   Runs \code{\link{readTireData}} with iColNamesRow = 2 and iFirstDataRow = 4.
+#'   Runs \code{\link{readTireData}} with `iColNamesRow = 2` and `iFirstDataRow` = 4.
 #'   `return(readTireData(sRunFileName, iColNamesRow = 2, iFirstDataRow = 4))`
 #'
 #' @param sRunFileName string. Complete path of the file name of a raw
@@ -165,8 +165,8 @@ readTTCData = function(sRunFileName) {
 #' Reads TTC .dat Data Files
 #'
 #' A Wrapper for \code{\link{readTireData}}
-#'   Runs \code{\link{readTireData}} with iColNamesRow = 1, iFirstDataRow = 2,
-#'   and sep = ",".
+#'   Runs \code{\link{readTireData}} with `iColNamesRow = 1`,
+#'   `iFirstDataRow = 2`, and `sep = ","`.
 #'   `return(readTireData(sRunFileName, iColNamesRow = 1, iFirstDataRow = 2, sep =","))`
 #'
 #' @param sRunFileName string. Complete path of the file name of a raw
@@ -197,7 +197,7 @@ removeSASweeps <- function(dfRawData){
     return(dfRawData)
 }
 
-#' Changes the Options to Run FYPure2002
+#' Changes the Options to Run `FYPure2002`
 #'
 #' Sets the following options:
 #' ```
@@ -206,11 +206,11 @@ removeSASweeps <- function(dfRawData){
 #'     tirefittingr.sfPreProcess = "FYPre",
 #'     tirefittingr.sfPlot = "fFYPlot")
 #' ```
-#'   So that `fitTires()` can be run for FYPure2002 For all available
-#'   options, see the helpfile for the \code{\link{fitTires}} function.
+#'   So that `fitTires()` can be run for `FYPure2002` For all available
+#'   options, see the help file for the \code{\link{fitTires}} function.
+#'   Also see \code{\link{FYPurePacejka2002}}
 #'
 #' @export
-#'
 #' @examples setFYPure2002()
 #' @md
 setFYPure2002 = function() {
@@ -233,8 +233,8 @@ setFYMF52 = setFYPure2002
 #'     tirefittingr.sfPreProcess = "FXPre",
 #'     tirefittingr.sfPlot = "fFXPlot")
 #' ```
-#'   So that `fitTires()` can be run for FXPure2002.wIA. For all
-#'   available options, see the helpfile for the \code{\link{fitTires}}
+#'   So that `fitTires()` can be run for `FXPure2002.wIA`. For all
+#'   available options, see the help file for the \code{\link{fitTires}}
 #'   function.
 #'
 #' @export
@@ -252,7 +252,7 @@ setFXPure2002.wIA = function() {
 #' @export
 setFXMF52 = setFXPure2002.wIA
 
-#' Changes Options to Run FXPure.NoIA
+#' Changes Options to Run `FXPure.NoIA`
 #'
 #' Sets the following options:
 #' ```
@@ -261,8 +261,8 @@ setFXMF52 = setFXPure2002.wIA
 #'     tirefittingr.sfPreProcess = "FXPre",
 #'     tirefittingr.sfPlot = "fFXPlot.NoIA")
 #' ```
-#'   So that fitTires function can be run for FXPure2002.NoIA. For all
-#'   available options, see the helpfile for the \code{\link{fitTires}}
+#'   So that `fitTires` function can be run for `FXPure2002.NoIA`. For all
+#'   available options, see the help file for the \code{\link{fitTires}}
 #'   function.
 #'
 #' @export
@@ -276,10 +276,10 @@ setFXPure2002.NoIA = function() {
             tirefittingr.sfPlot = "fFXPlot.NoIA")
 }
 
-#' Preprocess Data For FY
+#' Pre-Process Data For FY
 #'
 #' Filters out cold data depending on the setting for
-#' options("tirefittingr.coldCutoffTemp"
+#' `options("tirefittingr.coldCutoffTemp")`
 #' @param dfData data frame. Data to be processed
 #'
 #' @return data frame. Processed data.
@@ -324,7 +324,7 @@ FYPre = function(dfData){
   return(dfData)
 }
 
-#' Preprocess Data For FX
+#' Pre-Process Data For FX
 #'
 #' Depending on the options for
 #' @param dfData data frame. Data to be processed
@@ -379,13 +379,13 @@ FXPre = function(dfData){
 #'   Defaults to 4000 otherwise. To set, run
 #'   `options("tirefittingr.iDataPoints" = 4000")`, where 4000 is the number of
 #'   data points you wish to use. For more info on options in tirefitingr, see
-#'   the help file for the fitTires function with `?fitTires`.
+#'   the help file for the `fitTires` function with `?fitTires`.
 #'   Works for both lateral and longitudinal.
 #'
 #' @param dfData data frame. A dataset of tire data to be processed.
 #'
 #' @return data frame. The tire data trimmed down to the number of datapoints
-#'   specified by option("tirefittingr.iDataPoints").
+#'   specified by `option("tirefittingr.iDataPoints")`.
 #' @export
 #'
 #' @examples \dontrun{
@@ -433,14 +433,14 @@ fDropColsThatArentArgs = function(
 
 #' Filters Cold Data from a Dataset
 #'
-#' @param dfData data frame containing a temperature column named "TSTC".
+#' @param dfData data frame containing a temperature column named `TSTC`.
 #'   Defaults to the setting in `getOption("tirefittingr.coldCutoffTemp"`,
-#'   which in turn defaults to -Inf, if it is not set. For more info on options in tirefitingr, see
-#'   the help file for the fitTires function with `?fitTires`.
+#'   which in turn defaults to `-Inf`, if it is not set. For more info on options in tirefitingr, see
+#'   the help file for the `fitTires` function with `?fitTires`.
 #' @param dCutoffTempC numeric. Remove all data before the dataset reaches
 #'   this temperature.
 #'
-#' @return data frame with rows removed before dCutoffTempC is reached.
+#' @return data frame with rows removed before `dCutoffTempC` is reached.
 #' @export
 #' @md
 filterColdData = function(

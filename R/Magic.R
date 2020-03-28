@@ -2,7 +2,7 @@
 #' MF5.2 / Pacejka 2002 Pure Lateral Magic Formula
 #'
 #' Calculates the lateral tire force given FZ, SA, IA, and a set of parameters
-#'   using the Pacejke 2002 pure lateral formula. FYPureMF52 is for
+#'   using the Pacejka 2002 pure lateral formula. FYPureMF52 is for
 #'   Magic Formula 5.2 Pure lateral, which is the same as the Pacejka 2002 Pure
 #'   Lateral Model. FYPureMF52 function is an alias to FYPurePacejka2002.
 #'
@@ -33,10 +33,10 @@
 #'   pV3, pV4, pH1, pH2, pH3
 #' @param scaleMu numeric. Defaults to 1. Scaling factor multiplied by mu.
 #'   Used as symbol 'lambda_mu_y' in Tyre and Vehicle Dynamics (Pacejka, 2002)
-#'   Set to 1 during fitting. Testing from a facility (eg. TTC) is
+#'   Set to 1 during fitting. Testing from a facility (e.g. TTC) is
 #'   done on a sandpaper "road" which has a higher coefficient of friction
 #'   (mu) than regular pavement. To use this function to estimate real forces
-#'   that would be seen on pavement (for lapsim, etc), mu must be scaled
+#'   that would be seen on pavement (for lap sim, etc), mu must be scaled
 #'   down to what can be expected from a road. Typical mu on sandpaper may be
 #'   2.5, while pavement may be 1.4 (roughly equal to max steady state lateral
 #'   Gs without Aerodynamic downforce). As such a scaling factor of
@@ -129,10 +129,10 @@ attr(FYPureMF52, "outputName") = "FY"
 #'   common modification:} the addition of a \strong{15th parameter, pD3},
 #'   to include IA variation, which was not present in the standard 2002
 #'   pure longitudinal function. For the unmodified function, see
-#'   \code{\link{FXPurePacejka2002.wIA}}. FXPureMF52 is for
+#'   \code{\link{FXPurePacejka2002.wIA}}. `FXPureMF52` is for
 #'   Magic Formula 5.2 Pure longitudinal, which is the same as the Pacejka 2002
-#'   Pure longitudinal Model. FXPureMF52 function is an alias to
-#'   FXPurePacejka2002.wIA.
+#'   Pure longitudinal Model. `FXPureMF52` function is an alias to
+#'   `FXPurePacejka2002.wIA`.
 #'
 #' Check out the source code on the tirefittingr github in /R/Magic.R.
 #'
@@ -307,7 +307,7 @@ attr(FXPurePacejka2002.NoIA, "outputName") = "FX"
 #'
 #' Opens each data file from svRunNames, then splits all of the
 #'   data into the closest match in the splitting parameter argument.
-#'   For example if the fitting parameter was P = c(50,60,80), data points with
+#'   For example if the fitting parameter was `P = c(50,60,80)`, data points with
 #'   pressures from 0-45 kPa would be dropped. 45-54 kPa would be put in the
 #'   50 kPa, 55-69 kPa would be in the 60kPa file, 70-90 kPa would be in
 #'   the 80 kPa file, and data points with pressures of 91+ kPa would be
@@ -318,32 +318,32 @@ attr(FXPurePacejka2002.NoIA, "outputName") = "FX"
 #'   be passed into the function, and kPa will be in the output files.
 #'
 #'   The tire data is read using the function named in the settings
-#'   `getOption(tirefittingr.sfReadTireFile)`. If the option is not set (NULL),
-#'   then the default function readTTCData is used, which works for .dat
+#'   `getOption(tirefittingr.sfReadTireFile)`. If the option is not set (`NULL`),
+#'   then the default function `readTTCData` is used, which works for .dat
 #'   files from the TTC. For more on this option, see \code{\link{fitTires}}.
 #'
-#' @param svRunPaths optional string vector. Defaults to NULL.
+#' @param svRunPaths optional string vector. Defaults to `NULL.`
 #'   Complete file path of a tire raw data file. NULL opens a file dialog box
 #'   for the user to select files.
-#' @param svRunNames optional string vector. Defaults to NULL. String vector the
+#' @param svRunNames optional string vector. Defaults to `NULL.` String vector the
 #'   same length as svRunPaths. Run names for your future reference.
-#'   Used as titles for plots. Also gets recorded in summary table. Default NULL
+#'   Used as titles for plots. Also gets recorded in summary table. Default `NULL`
 #'   uses the end of the file name.
 #' @param ... named argument of a Numeric Vector containing at least two values,
 #'   with name corresponding to a column name of a tire data file.
 #'   Suggested Names: 'V', 'N', 'SA', 'IA', 'P', 'FZ', 'TSTC', 'SR'.
-#' @param  verbose boolean. Defaults to TRUE.
+#' @param  verbose boolean. Defaults to `TRUE`.
 #'   True prints messages in the console, while false does not.
-#' @param bSaveBatchNames boolean. Defaults to FALSE. TRUE saves output
+#' @param bSaveBatchNames boolean. Defaults to `FALSE`. `TRUE` saves output
 #'   to a csv file.
 #' @param k integer. Defaults to 10.
 #'   Rolling average window width. A rolling
 #'   average is applied to the named argument column before splitting.
-#'   set to 1 to disable. See k from
+#'   set to 1 to disable. See `k` from
 #'   \code{\link[zoo:rollmean]{zoo::rollmean()}}
-#' @param nRowHeader see rRowHeader from \code{\link{writeFileWithHeader}}
-#' @return Returns Dataframe of full-path run names of newly created runs
-#'   along with a copy of column 2 from the original input RunNames data frame.
+#' @param nRowHeader see `rRowHeader` from \code{\link{writeFileWithHeader}}
+#' @return Returns Dataframe of full-path run names of newly created runs.
+#'   Second column contains copied `svRunNames`.
 #' @export
 #'
 #' @examples

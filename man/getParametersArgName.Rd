@@ -8,20 +8,20 @@ getParametersArgName(dfData, fFittingFunction)
 }
 \arguments{
 \item{dfData}{data frame containing column names that match to
-all of the argument names of the fFittingFunction}
+all of the argument names of the `fFittingFunction`}
 
 \item{fFittingFunction}{function. Function whose arguments will be matched
-against the column names of dfData to determine the name of the parameter
+against the column names of `dfData` to determine the name of the parameter
 argument.}
 }
 \value{
 string. Argument name.
 }
 \description{
-Returns the name of the parameter argument in the fFittingFunction
+Returns the name of the parameter argument in the `fFittingFunction`
 }
 \details{
-Returns the name of the parameter argument in the fFittingFunction
-  by looking for what argument of the fFittingFunction does not appear
+Returns the name of the parameter argument in the `fFittingFunction`
+  by looking for what argument of the `fFittingFunction` does not appear
   as a column name in the dataset.
 }

@@ -9,13 +9,13 @@ fFXPlot(dfPlotData, runSummary, IA = TRUE)
 \arguments{
 \item{dfPlotData}{data frame. Data to plot.}
 
-\item{runSummary}{data frame. From the fitTires function.}
+\item{runSummary}{data frame. From the `fitTires` function.}
 
 \item{IA}{logical. Indicates if IA should be plotted or not. Set to true if
-the pacejka fitting equation used IA as an input. Set FALSE otherwise.}
+the Pacejka fitting equation used IA as an input. Set FALSE otherwise.}
 }
 \description{
-Used by the fitTires function. Set with `setFXPure2002.wIA()` or
+Used by the `fitTires` function. Set with `setFXPure2002.wIA()` or
   manually with
   `options(tirefittingr.sfPlot = "fFXPlot")`.
 }

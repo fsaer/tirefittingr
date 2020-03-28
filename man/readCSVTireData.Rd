@@ -17,8 +17,8 @@ data frame with named columns containing raw data.
 }
 \description{
 A Wrapper for \code{\link{readTireData}}
-  Runs \code{\link{readTireData}} with iColNamesRow = 1, iFirstDataRow = 2,
-  and sep = ",".
+  Runs \code{\link{readTireData}} with `iColNamesRow = 1`,
+  `iFirstDataRow = 2`, and `sep = ","`.
   `return(readTireData(sRunFileName, iColNamesRow = 1, iFirstDataRow = 2, sep =","))`
 }
 \examples{

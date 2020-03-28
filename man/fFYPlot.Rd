@@ -12,6 +12,6 @@ fFYPlot(dfPlotData, runSummary)
 \item{runSummary}{data frame. From the fitTires function.}
 }
 \description{
-Used by the fitTires function. Set with `setFYPure2002()` or manually with
+Used by the `fitTires` function. Set with `setFYPure2002()` or manually with
   `options(tirefittingr.sfPlot = "fFYPlot")`.
 }

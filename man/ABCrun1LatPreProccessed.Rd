@@ -14,7 +14,7 @@ A data frame with 1451 rows and 8 variables:
   \item{TSTC}{Temperature in C}
   \item{FX}{Longitudinal Load in N}
   \item{SR}{Slip Ratio (unitless)}
-  \item{P}{Pressure in KPa}
+  \item{P}{Pressure in kPa}
 }
 }
 \usage{

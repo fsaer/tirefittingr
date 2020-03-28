@@ -18,6 +18,6 @@ numeric vector where the values close enough to be duplicates
 }
 \description{
 Removes duplicates from a list to post-process peaks from
-  IDPmisc::peaks function. Removes duplicates by averaging 2 values
-  that are within the dWithin value.
+  `IDPmisc::peaks` function. Removes duplicates by averaging 2 values
+  that are within the `dWithin` value.
 }

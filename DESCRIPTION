@@ -3,7 +3,7 @@ Type: Package
 Title: Fitting and Analysis of Tire Data
 Version: 0.6.0
 Authors@R: person("Bennet", "Heidenreich", role = c("aut", "cre"), email = "bheidenr@uwo.ca") 
-Description: Contains tools for opening, pre-processing, curve fitting, and analyzing tire data using pacejka magic formula.
+Description: Contains tools for opening, pre-processing, curve fitting, and analyzing tire data using Pacejka magic formula.
 License: AGPL-3
 Encoding: UTF-8
 LazyData: true

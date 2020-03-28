@@ -32,5 +32,5 @@ Plots raw data with a fitted curve overlayed so that the user can judge the
   quality of the fit.
 }
 \details{
-UNTESTED OUTSIDE OF fitTires function!
+UNTESTED OUTSIDE OF `fitTires` function!
 }

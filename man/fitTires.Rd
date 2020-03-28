@@ -32,8 +32,8 @@ in the through the svRunPaths argument.
 }
 \details{
 Opens each raw data file using \code{\link{readTireData}} (or a similar
-function if the option tirefittingr.sfReadTireFile is defined), then applies
-the pre-process function defined in getOption("tirefittingr.sfPreProcess").
+function if the option \code{tirefittingr.sfReadTireFile} is defined), then applies
+the pre-process function defined in \code{getOption("tirefittingr.sfPreProcess")}.
 Using \code{\link[DEoptim:DEoptim]{DEoptim::DEoptim()}}, a differential evolution
 optimization algorithm, the starting population of
 parameters evolves to find those
@@ -81,10 +81,10 @@ The function must have one argument that is
 the full path name of a raw data file, and must output a data frame.
 See \code{\link{readTTCData}}.}
 \item{tirefittingr.sSavePlotPath}{string. defaults to \code{FALSE}. Entire path
-of location to save the plot. \code{FALSE} displays them in the rStudio
+of location to save the plot. \code{FALSE} displays them in the RStudio
 graphics window.}
 \item{tirefittingr.sdfStartPop}{string of the name of a
-data frame. A data frame of the starting population of pacejka
+data frame. A data frame of the starting population of Pacejka
 coefficients. Pre-installed options are \code{'dfStartParFY'},
 and \code{'dfStartParFX'}.}
 \item{tirefittingr.verbose}{logical. Defaults to \code{TRUE}. False suppresses

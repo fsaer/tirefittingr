@@ -11,7 +11,7 @@ basicPre(dfData)
 }
 \value{
 data frame. The tire data trimmed down to the number of datapoints
-  specified by option("tirefittingr.iDataPoints").
+  specified by `option("tirefittingr.iDataPoints")`.
 }
 \description{
 Randomly reduces the number of data points to
@@ -19,7 +19,7 @@ Randomly reduces the number of data points to
   Defaults to 4000 otherwise. To set, run
   `options("tirefittingr.iDataPoints" = 4000")`, where 4000 is the number of
   data points you wish to use. For more info on options in tirefitingr, see
-  the help file for the fitTires function with `?fitTires`.
+  the help file for the `fitTires` function with `?fitTires`.
   Works for both lateral and longitudinal.
 }
 \examples{

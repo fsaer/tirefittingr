@@ -42,10 +42,10 @@ Uses the Pure Longitudinal Magic Formula (Pacejka 2002). \strong{With a
   common modification:} the addition of a \strong{15th parameter, pD3},
   to include IA variation, which was not present in the standard 2002
   pure longitudinal function. For the unmodified function, see
-  \code{\link{FXPurePacejka2002.wIA}}. FXPureMF52 is for
+  \code{\link{FXPurePacejka2002.wIA}}. `FXPureMF52` is for
   Magic Formula 5.2 Pure longitudinal, which is the same as the Pacejka 2002
-  Pure longitudinal Model. FXPureMF52 function is an alias to
-  FXPurePacejka2002.wIA.
+  Pure longitudinal Model. `FXPureMF52` function is an alias to
+  `FXPurePacejka2002.wIA`.
 }
 \details{
 Check out the source code on the tirefittingr github in /R/Magic.R.

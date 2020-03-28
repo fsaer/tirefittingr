@@ -2,7 +2,7 @@
 % Please edit documentation in R/PreProcess.R
 \name{setFXPure2002.NoIA}
 \alias{setFXPure2002.NoIA}
-\title{Changes Options to Run FXPure.NoIA}
+\title{Changes Options to Run \code{FXPure.NoIA}}
 \usage{
 setFXPure2002.NoIA()
 }
@@ -13,8 +13,8 @@ Sets the following options:\preformatted{  options(tirefittingr.sdfStartPop = "d
     tirefittingr.sfPlot = "fFXPlot.NoIA")
 }
 
-So that fitTires function can be run for FXPure2002.NoIA. For all
-available options, see the helpfile for the \code{\link{fitTires}}
+So that \code{fitTires} function can be run for \code{FXPure2002.NoIA}. For all
+available options, see the help file for the \code{\link{fitTires}}
 function.
 }
 \examples{

@@ -47,10 +47,10 @@ pV3, pV4, pH1, pH2, pH3}
 
 \item{scaleMu}{numeric. Defaults to 1. Scaling factor multiplied by mu.
 Used as symbol 'lambda_mu_y' in Tyre and Vehicle Dynamics (Pacejka, 2002)
-Set to 1 during fitting. Testing from a facility (eg. TTC) is
+Set to 1 during fitting. Testing from a facility (e.g. TTC) is
 done on a sandpaper "road" which has a higher coefficient of friction
 (mu) than regular pavement. To use this function to estimate real forces
-that would be seen on pavement (for lapsim, etc), mu must be scaled
+that would be seen on pavement (for lap sim, etc), mu must be scaled
 down to what can be expected from a road. Typical mu on sandpaper may be
 2.5, while pavement may be 1.4 (roughly equal to max steady state lateral
 Gs without Aerodynamic downforce). As such a scaling factor of
@@ -62,7 +62,7 @@ Lateral Force, FY, in Newtons.
 }
 \description{
 Calculates the lateral tire force given FZ, SA, IA, and a set of parameters
-  using the Pacejke 2002 pure lateral formula. FYPureMF52 is for
+  using the Pacejka 2002 pure lateral formula. FYPureMF52 is for
   Magic Formula 5.2 Pure lateral, which is the same as the Pacejka 2002 Pure
   Lateral Model. FYPureMF52 function is an alias to FYPurePacejka2002.
 }

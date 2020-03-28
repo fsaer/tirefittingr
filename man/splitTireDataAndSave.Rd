@@ -15,36 +15,36 @@ splitTireDataAndSave(
 )
 }
 \arguments{
-\item{svRunPaths}{optional string vector. Defaults to NULL.
+\item{svRunPaths}{optional string vector. Defaults to `NULL.`
 Complete file path of a tire raw data file. NULL opens a file dialog box
 for the user to select files.}
 
-\item{svRunNames}{optional string vector. Defaults to NULL. String vector the
+\item{svRunNames}{optional string vector. Defaults to `NULL.` String vector the
 same length as svRunPaths. Run names for your future reference.
-Used as titles for plots. Also gets recorded in summary table. Default NULL
+Used as titles for plots. Also gets recorded in summary table. Default `NULL`
 uses the end of the file name.}
 
 \item{...}{named argument of a Numeric Vector containing at least two values,
 with name corresponding to a column name of a tire data file.
 Suggested Names: 'V', 'N', 'SA', 'IA', 'P', 'FZ', 'TSTC', 'SR'.}
 
-\item{verbose}{boolean. Defaults to TRUE.
+\item{verbose}{boolean. Defaults to `TRUE`.
 True prints messages in the console, while false does not.}
 
-\item{bSaveBatchNames}{boolean. Defaults to FALSE. TRUE saves output
+\item{bSaveBatchNames}{boolean. Defaults to `FALSE`. `TRUE` saves output
 to a csv file.}
 
 \item{k}{integer. Defaults to 10.
 Rolling average window width. A rolling
 average is applied to the named argument column before splitting.
-set to 1 to disable. See k from
+set to 1 to disable. See `k` from
 \code{\link[zoo:rollmean]{zoo::rollmean()}}}
 
-\item{nRowHeader}{see rRowHeader from \code{\link{writeFileWithHeader}}}
+\item{nRowHeader}{see `rRowHeader` from \code{\link{writeFileWithHeader}}}
 }
 \value{
-Returns Dataframe of full-path run names of newly created runs
-  along with a copy of column 2 from the original input RunNames data frame.
+Returns Dataframe of full-path run names of newly created runs.
+  Second column contains copied `svRunNames`.
 }
 \description{
 Splits Tire data files into multiple data files based on a passed parameter
@@ -53,7 +53,7 @@ Splits Tire data files into multiple data files based on a passed parameter
 \details{
 Opens each data file from svRunNames, then splits all of the
   data into the closest match in the splitting parameter argument.
-  For example if the fitting parameter was P = c(50,60,80), data points with
+  For example if the fitting parameter was `P = c(50,60,80)`, data points with
   pressures from 0-45 kPa would be dropped. 45-54 kPa would be put in the
   50 kPa, 55-69 kPa would be in the 60kPa file, 70-90 kPa would be in
   the 80 kPa file, and data points with pressures of 91+ kPa would be
@@ -64,8 +64,8 @@ Opens each data file from svRunNames, then splits all of the
   be passed into the function, and kPa will be in the output files.
 
   The tire data is read using the function named in the settings
-  `getOption(tirefittingr.sfReadTireFile)`. If the option is not set (NULL),
-  then the default function readTTCData is used, which works for .dat
+  `getOption(tirefittingr.sfReadTireFile)`. If the option is not set (`NULL`),
+  then the default function `readTTCData` is used, which works for .dat
   files from the TTC. For more on this option, see \code{\link{fitTires}}.
 }
 \examples{

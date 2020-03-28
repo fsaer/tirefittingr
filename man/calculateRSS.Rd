@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{calculateRSS}
 \alias{calculateRSS}
-\title{Calculates RSS Residuals Error between a pacejka Curve and data set}
+\title{Calculates RSS Residuals Error Between a Pacejka Curve and Data Set}
 \usage{
 calculateRSS(svInputFile = NULL, parameters)
 }

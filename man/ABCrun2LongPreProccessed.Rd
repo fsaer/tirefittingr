@@ -14,7 +14,7 @@ A data frame with 606 rows and 8 variables:
   \item{SA}{Slip Angle in degrees}
   \item{TSTC}{Temperature in C}
   \item{FY}{Lateral Load in N}
-  \item{P}{Pressure in KPa}
+  \item{P}{Pressure in kPa}
 }
 }
 \usage{

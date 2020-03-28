@@ -16,8 +16,8 @@ Sets the following options:\preformatted{  options(tirefittingr.sdfStartPop = "d
     tirefittingr.sfPlot = "fFXPlot")
 }
 
-So that \code{fitTires()} can be run for FXPure2002.wIA. For all
-available options, see the helpfile for the \code{\link{fitTires}}
+So that \code{fitTires()} can be run for \code{FXPure2002.wIA}. For all
+available options, see the help file for the \code{\link{fitTires}}
 function.
 }
 \examples{

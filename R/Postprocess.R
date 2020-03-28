@@ -6,7 +6,7 @@
 #' Plots raw data with a fitted curve overlayed so that the user can judge the
 #'   quality of the fit.
 #'
-#' UNTESTED OUTSIDE OF fitTires function!
+#' UNTESTED OUTSIDE OF `fitTires` function!
 #'
 #' @param dfPlotData data frame. Contains raw data to plot.
 #' @param lCurveParameters list containing the parameters for the curves.
@@ -180,23 +180,22 @@ plotGoodnessOfFit = function(dfPlotData, lCurveParameters, lPlotSetup){
 
 #' Creates a data frame with a column
 #'
-#' @param fFittingFunction function. A tire fititng function. Pre-installed
-#'   functions available are FYPurePacejka2002, FXPurePacejka2002.NoIA, and
-#'   FXPurePacejka2002.wIA . The function must have assigned attributes
-#'   "parameterNames", which list the names of the parameters.
-#'   Example: attr(fFittingFunction, "parameterNames") =
-#'   c("pC1", "pD1", "pD2" ...)
+#' @param fFittingFunction function. A tire fitting function. Pre-installed
+#'   functions available are `FYPurePacejka2002`, `FXPurePacejka2002.NoIA`, and
+#'   `FXPurePacejka2002.wIA` . The function must have assigned attributes
+#'   `"parameterNames"`, which list the names of the parameters.
+#'   Example: `attr(fFittingFunction, "parameterNames") = c("pC1", "pD1", "pD2" ...)`
 #' @param sParameterArgName string. Defaults to "parameters".
 #'   Name of the parameters argument in the
-#'   curve fitting function. For built in curves such as FYPurePacejka2002,
+#'   curve fitting function. For built in curves such as `FYPurePacejka2002`,
 #'   the parameter name is 'parameters'.
 #' @param ... Other arguments passed into the curve fitting function. Pass
 #'   vectors in order to sweep through multiple values. The exception being
 #'   the item containing the vector of parameters, which  will not be
 #'   swept through.
 #'
-#' @return data frame with a column for each original item from ... and the
-#'   output of the fFittingFunction. This data frame is ready for plotting.
+#' @return data frame with a column for each original item from `...` and the
+#'   output of the `fFittingFunction`. This data frame is ready for plotting.
 #' @export
 #'
 #' @examples data = createFitDataFrame(
@@ -271,7 +270,7 @@ function. Passed Parameters:", length(dvParameters), "vs Function:",
 
 #' Plotting Function for FY
 #'
-#' Used by the fitTires function. Set with `setFYPure2002()` or manually with
+#' Used by the `fitTires` function. Set with `setFYPure2002()` or manually with
 #'   `options(tirefittingr.sfPlot = "fFYPlot")`.
 #'
 #' @param dfPlotData data frame. Data to plot.
@@ -329,14 +328,14 @@ fFYPlot = function(dfPlotData, runSummary) {
 
 #' Plotting Function for FX
 #'
-#' Used by the fitTires function. Set with `setFXPure2002.wIA()` or
+#' Used by the `fitTires` function. Set with `setFXPure2002.wIA()` or
 #'   manually with
 #'   `options(tirefittingr.sfPlot = "fFXPlot")`.
 #'
 #' @param dfPlotData data frame. Data to plot.
-#' @param runSummary data frame. From the fitTires function.
+#' @param runSummary data frame. From the `fitTires` function.
 #' @param IA logical. Indicates if IA should be plotted or not. Set to true if
-#'   the pacejka fitting equation used IA as an input. Set FALSE otherwise.
+#'   the Pacejka fitting equation used IA as an input. Set FALSE otherwise.
 fFXPlot = function(dfPlotData, runSummary, IA = TRUE) {
 
     lPlotSetup = list(
@@ -401,16 +400,16 @@ fFXPlot.NoIA = function(dfPlotData, runSummary) {
 
 #' Get Parameter Argument Name
 #'
-#' Returns the name of the parameter argument in the fFittingFunction
+#' Returns the name of the parameter argument in the `fFittingFunction`
 #'
-#' Returns the name of the parameter argument in the fFittingFunction
-#'   by looking for what argument of the fFittingFunction does not appear
+#' Returns the name of the parameter argument in the `fFittingFunction`
+#'   by looking for what argument of the `fFittingFunction` does not appear
 #'   as a column name in the dataset.
 #'
 #' @param dfData data frame containing column names that match to
-#'   all of the argument names of the fFittingFunction
+#'   all of the argument names of the `fFittingFunction`
 #' @param fFittingFunction function. Function whose arguments will be matched
-#'   against the column names of dfData to determine the name of the parameter
+#'   against the column names of `dfData` to determine the name of the parameter
 #'   argument.
 #'
 #' @return string. Argument name.
@@ -432,8 +431,8 @@ getParametersArgName = function(dfData, fFittingFunction){
 #' Removes Duplicates
 #'
 #' Removes duplicates from a list to post-process peaks from
-#'   IDPmisc::peaks function. Removes duplicates by averaging 2 values
-#'   that are within the dWithin value.
+#'   `IDPmisc::peaks` function. Removes duplicates by averaging 2 values
+#'   that are within the `dWithin` value.
 #'
 #' @param x numeric vector
 #' @param dWithin numeric. How close will values be to trigger averaging

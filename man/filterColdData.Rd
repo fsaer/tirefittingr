@@ -10,16 +10,16 @@ filterColdData(
 )
 }
 \arguments{
-\item{dfData}{data frame containing a temperature column named "TSTC".
+\item{dfData}{data frame containing a temperature column named \code{TSTC}.
 Defaults to the setting in \verb{getOption("tirefittingr.coldCutoffTemp"},
-which in turn defaults to -Inf, if it is not set. For more info on options in tirefitingr, see
-the help file for the fitTires function with \code{?fitTires}.}
+which in turn defaults to \code{-Inf}, if it is not set. For more info on options in tirefitingr, see
+the help file for the \code{fitTires} function with \code{?fitTires}.}
 
 \item{dCutoffTempC}{numeric. Remove all data before the dataset reaches
 this temperature.}
 }
 \value{
-data frame with rows removed before dCutoffTempC is reached.
+data frame with rows removed before \code{dCutoffTempC} is reached.
 }
 \description{
 Filters Cold Data from a Dataset

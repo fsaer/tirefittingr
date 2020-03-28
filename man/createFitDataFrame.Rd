@@ -7,16 +7,15 @@
 createFitDataFrame(fFittingFunction, sParameterArgName = "parameters", ...)
 }
 \arguments{
-\item{fFittingFunction}{function. A tire fititng function. Pre-installed
-functions available are FYPurePacejka2002, FXPurePacejka2002.NoIA, and
-FXPurePacejka2002.wIA . The function must have assigned attributes
-"parameterNames", which list the names of the parameters.
-Example: attr(fFittingFunction, "parameterNames") =
-c("pC1", "pD1", "pD2" ...)}
+\item{fFittingFunction}{function. A tire fitting function. Pre-installed
+functions available are `FYPurePacejka2002`, `FXPurePacejka2002.NoIA`, and
+`FXPurePacejka2002.wIA` . The function must have assigned attributes
+`"parameterNames"`, which list the names of the parameters.
+Example: `attr(fFittingFunction, "parameterNames") = c("pC1", "pD1", "pD2" ...)`}
 
 \item{sParameterArgName}{string. Defaults to "parameters".
 Name of the parameters argument in the
-curve fitting function. For built in curves such as FYPurePacejka2002,
+curve fitting function. For built in curves such as `FYPurePacejka2002`,
 the parameter name is 'parameters'.}
 
 \item{...}{Other arguments passed into the curve fitting function. Pass
@@ -25,8 +24,8 @@ the item containing the vector of parameters, which  will not be
 swept through.}
 }
 \value{
-data frame with a column for each original item from ... and the
-  output of the fFittingFunction. This data frame is ready for plotting.
+data frame with a column for each original item from `...` and the
+  output of the `fFittingFunction`. This data frame is ready for plotting.
 }
 \description{
 Creates a data frame with a column

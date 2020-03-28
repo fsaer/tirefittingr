@@ -2,7 +2,7 @@
 % Please edit documentation in R/PreProcess.R
 \name{FYPre}
 \alias{FYPre}
-\title{Preprocess Data For FY}
+\title{Pre-Process Data For FY}
 \usage{
 FYPre(dfData)
 }
@@ -14,5 +14,5 @@ data frame. Processed data.
 }
 \description{
 Filters out cold data depending on the setting for
-options("tirefittingr.coldCutoffTemp"
+`options("tirefittingr.coldCutoffTemp")`
 }

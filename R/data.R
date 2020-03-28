@@ -33,7 +33,7 @@
 #'   \item{TSTC}{Temperature in C}
 #'   \item{FX}{Longitudinal Load in N}
 #'   \item{SR}{Slip Ratio (unitless)}
-#'   \item{P}{Pressure in KPa}
+#'   \item{P}{Pressure in kPa}
 #' }
 "ABCrun1LatPreProccessed"
 
@@ -49,7 +49,7 @@
 #'   \item{TSTC}{Temperature in C}
 #'   \item{FX}{Longitudinal Load in N}
 #'   \item{SR}{Slip Ratio (unitless)}
-#'   \item{P}{Pressure in KPa}
+#'   \item{P}{Pressure in kPa}
 #' }
 "ABCrun2LatPreProccessed"
 
@@ -65,7 +65,7 @@
 #'   \item{SA}{Slip Angle in degrees}
 #'   \item{TSTC}{Temperature in C}
 #'   \item{FY}{Lateral Load in N}
-#'   \item{P}{Pressure in KPa}
+#'   \item{P}{Pressure in kPa}
 #' }
 "ABCrun1LongPreProccessed"
 
@@ -81,7 +81,7 @@
 #'   \item{SA}{Slip Angle in degrees}
 #'   \item{TSTC}{Temperature in C}
 #'   \item{FY}{Lateral Load in N}
-#'   \item{P}{Pressure in KPa}
+#'   \item{P}{Pressure in kPa}
 #' }
 "ABCrun2LongPreProccessed"
 

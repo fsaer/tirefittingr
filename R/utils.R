@@ -26,7 +26,7 @@ choose_files = function(
     }
 }
 
-#' Calculates RSS Residuals Error between a pacejka Curve and data set
+#' Calculates RSS Residuals Error Between a Pacejka Curve and Data Set
 #'
 #' Calculates RSS divided by the total number of data points in the full
 #'   data set. See \url{https://en.wikipedia.org/wiki/Residual_sum_of_squares}
