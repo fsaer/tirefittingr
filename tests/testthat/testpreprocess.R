@@ -31,7 +31,7 @@ test_that("Check checkTireRunList works", {
 })
 
 test_that("Reading TTC Data Works",{
-
+    testthat::skip("Skipping read TTC data")
     # path = "ABCrun1Lat.Rdata"
     path1 = system.file("extdata", "ABCrun1Lat.dat",
                 package = "tirefittingr", mustWork = TRUE)
@@ -41,7 +41,7 @@ test_that("Reading TTC Data Works",{
 
 test_that("Split Data Function Works",{
 
-    testthat::skip_on_cran("Skip writing files")
+    testthat::skip("Skip writing files")
     pathReadSplit = system.file("extdata", "ABCrunLat.dat",
                                   package = "tirefittingr", mustWork = TRUE)
 
