@@ -1,7 +1,7 @@
 
 # GETTING STARTED
 ## Install
-### Windows 
+### Windows / Mac Install
 #### (With admin rights on the computer)
 1. **Download/Install R**. https://cran.r-project.org
     At the moment, it works with the latest version, 3.6.3.
@@ -10,18 +10,17 @@
     lower on the page pick "Previous Releases" and get 3.6.3. 
     **Install**.
 2. **Download/Install RStudio**, the development environment (IDE). https://www.RStudio.com/products/RStudio/download/#download
-3. **Download/Install RTools** https://cran.r-project.org/bin/windows/Rtools/ 
- Get the green, "recommended" version. 
+3. Go to (Start Analyzing Data)[#analyze-data] section.
 
 #### But if you don't have admin rights on the computer
 1. Follow instructions here: https://rpubs.com/tomhopper/windows_nonadmin_install
          This will lead you to download and unpack the zip files for both R,
          and RStudio, then run the .exe files within the bin folder.
-### Ubuntu / Linux
+2. Go to (Start Analyzing Data)[#analyze-data] section.
+### Ubuntu / Linux Install
 Only tested this on Ubuntu 18.04
 1. Follow these instructions
 https://cran.r-project.org/bin/linux/ubuntu/README.html
-2. 
 ```
 sudo nano /etc/apt/sources.list
 
@@ -63,7 +62,7 @@ cd tirefittingr
 sudo R
 devtools::load_
 ```
-## Start Using the Package to Analyze Data
+## Analyze Data
 Install R and RStudio (See above) 
 Open the program "RStudio", **Not** "R x64 3.6.3"/etc.
 
@@ -124,7 +123,6 @@ in a web browser. This will run you through examples.
 You probably want to start your scripts with the following code to 
 load some useful packages that we've installed into memory so they 
 can be used.
-
 ```
 library(plyr)       #   if you use functions from any of these packages
 library(dplyr)
@@ -163,11 +161,11 @@ library(dplyr)
 library(plotly)
 library(magrittr)
 ```
-
 # Get started improving this package!
-1. After installing R, RStudio, and RTools, make a local copy (clone) of the git repo. 
-    I suggest making a github account and getting github desktop
-2. Install the following packages through the console window in RStudio. 
+1. After installing R and RStudio (see first section)
+2. Make a local copy (clone) of the git repo. I suggest making a github 
+account and getting github desktop
+3. Install the following packages through the console window in RStudio. 
 ```
 install.packages("devtools") # Lots of tools
 install.packages("lintr") # keeps your code properly formatted
@@ -175,19 +173,20 @@ install.packages("roxygen2") # For updating documentation
 install.packages("testthat") # For automatic testing
 install.packages("knitr") # for making markdown notebooks
 ```
-3. If you haven't downloaded/install RTools yet, download/install it now. https://cran.r-project.org/bin/windows/Rtools/
-4. Restart RStudio
-5. Open the tirefittingr project in RStudio (file>open project, select .Rproj file 
+4. If you haven't downloaded/install RTools yet, download/install it now. https://cran.r-project.org/bin/windows/Rtools/
+5. Restart RStudio
+6. Open the tirefittingr project in RStudio (file>open project, select .Rproj file 
 within the unzipped git repo folder)
-6. Attempt to run a test using ctrl+shft+T or in the top right window on the build tab select more>test package. Test before doing commits. In the commit comments comment on the status of all the tests. Ex. "Tests:O20/F0/W0/S0". Or if you ran a devtools::check(), comment C:_/_/_
-7. Load package  with devtools::load_all(".") or ctrl+shft+L
+7. Attempt to run a test using ctrl+shft+T or in the top right window on the build tab select more>test package. Test before doing commits. In the commit comments comment on the status of all the tests. Ex. "Tests:O20/F0/W0/S0". Or if you ran a devtools::check(), comment C:_/_/_
+8. Load package  with devtools::load_all(".") or ctrl+shft+L
     Do this after making any changes, and before using the functions/scripts that have changed.
     This will execute ALL of the code in the package.
-8. Use lintr to get guidelines on how to properly format your code. 
+9. Use lintr to get guidelines on how to properly format your code. 
    `sSummaryExportFolder`.
-8. Install github desktop https://desktop.github.com/ or use Git with RStudio https://support.RStudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN
+10. Install github desktop https://desktop.github.com/ or use Git with RStudio https://support.RStudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN
+Note: Raw TTC data will not be allowed into the public repository.
 
-# If you want to use the package and develop it!
+# If you want to both use the package and develop it!
 1. Follow the instructions for both using the package and developing it in the sections above
 2. Make sure you use different folders for the package itself and the project where you are 
 using the package. 
@@ -201,16 +200,12 @@ library(tirefittingr)
 Don't forget to commit properly to github!
 
 # How does this package work?
-1. For each run name, loads the raw data into memory, and trim the warmup data (function `readData`)
+1. For each run name, loads the raw data into memory
 2. To fit a curve, it uses a differential evolutionary algorithm which works by starting with an initial population of possible solutions. See DEOptim.
      - A solution is a set of Pacejka coefficients. For each set of coefficients the code will take the FZ, IA, and SA/SL values from each raw data point
-     - And output an Fx/Fy value using the Pacejka curve.For a set of coefficients, all of the output Fy/Fx values are compared to the actual
+     - And output an Fx/Fy value using the Pacejka curve. For a set of coefficients, all of the output Fy/Fx values are compared to the actual
      - Fx/Fy in the raw data. The total error for that set of coefficients (aka solution) is calculated.
      - Within the population of solutions the best solutions are mixed to create new solutions. After many rounds of selection, the best solution is
      added to the summary table along with the other runs.
 3. The latest curve is then plotted. The code divides the x axis (SA/SL) into groups, and finds the most common FZ in that group then it plots the curve for that group along with the raw data points closest to the common FZ value.
-
-
-
-
 
