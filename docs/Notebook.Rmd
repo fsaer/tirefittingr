@@ -29,11 +29,13 @@ https://github.com/fsaer/tirefittingr
 Make sure you have downloaded and installed the package if you haven't already.
 Installing only needs to be done once on a computer.
 
-Replace X.X.X with the latest version number from 
-https://github.com/fsaer/tirefittingr/releases
 ```{r eval=FALSE}
 install.packages("devtools")
-devtools::install_github("fsaer/tirefittingr@X.X.X") 
+devtools::install_github("fsaer/tirefittingr") 
+# if there's bugs, you can download the latest release instead
+# Replace X.X.X with the latest version number from 
+# https://github.com/fsaer/tirefittingr/releases
+# devtools::install_github("fsaer/tirefittingr@X.X.X") 
 
 install.packages("plotly") #now is also the time to install plotly if you haven't already
 ```
