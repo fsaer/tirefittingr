@@ -10,13 +10,13 @@
     lower on the page pick "Previous Releases" and get 3.6.3. 
     **Install**.
 2. **Download/Install RStudio**, the development environment (IDE). https://www.RStudio.com/products/RStudio/download/#download
-3. Go to (Start Analyzing Data)[#analyze-data] section.
+3. Go to the Analyze Data Section
 
 #### But if you don't have admin rights on the computer
 1. Follow instructions here: https://rpubs.com/tomhopper/windows_nonadmin_install
          This will lead you to download and unpack the zip files for both R,
          and RStudio, then run the .exe files within the bin folder.
-2. Go to (Start Analyzing Data)[#analyze-data] section.
+2. Go to the Analyze Data Section
 ### Ubuntu / Linux Install
 Only tested this on Ubuntu 18.04
 1. Follow these instructions
@@ -140,7 +140,14 @@ or to define your own function, you can load it into memory by running the entir
 it into a script that is run (make sure the definition comes **before** the function is used). 
 6. When reading others code, you may see the pipe operator "%>%" at the end of a line. It drastically changes how the group of lines is executed. You should read short the "magrittr vingette" (google it).
    -Essentially a line that ends in "%>%" is put into an argument of the function on the next line where a period "." is used as an argument, or if there are no periods, the default is the first argument. 
-7. Unlike matlab the default for multiplication and division is element-wise. 
+7. **matlab differences**
+    a. The default for multiplication and division in R is element-wise. 
+    b. Matlab uses "()" in both a function call ie. to call a function 
+    with two arguments, 1 and 2: myFunc(1,2) and to subset a matrix. ie. to get 
+    the element in 1st column and second row myArray(1,2) is used. In R, 
+    function calls are the same, however, to get an element of an array, "[]" 
+    are used. ie. myArray[1,2] . To get all elements in column 2: myArray[,2].
+    See https://cran.r-project.org/doc/contrib/Hiebeler-matlabR.pdf
 8. Using functions from other packages. There are two steps:
     1. Install (one-time) and 2. Load in to memory (every session)
 Packages are available for install in two locations: CRAN and github. Most common ones

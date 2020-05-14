@@ -59,8 +59,7 @@ quality of the fit.
 ```
 
 At a minimum, we need to set the options telling the program whether we are 
-fitting we need to set the starting population and tell it which fitting 
-equation to use.
+fitting FX or FY Pure. 
 ```{r}
 #Required options
 #options(tirefittingr.sdfStartPop = "dfStartParFY")
@@ -88,27 +87,26 @@ IA sweeps, and the pressure is what we expected.
 In the goodness of fit plots, we can see how closely our fitted curve matches
 the raw data. 
 
+Let's see the full output by clicking on `dfFitSummary` in the top right 
+"Environment" tab, or by running `View(dfFitSummary)` in the console.
+
 # Using fitTires()
 Running fitTires() without any arguments will open a dialog box to pick files. 
 Make sure if you have setFYPure2002, then you are selecting FY files or vice 
-versa!
+versa! 
+
+First we will clear the previous options. This will take longer to solve, 
+but we will get a better fit.
 ```{r eval=FALSE, include=TRUE}
+clearTirefittingrOptions()
+
 setFYPure2002() #setFXPure2002.wIA()
 
 dfFitSummary = fitTires()
 ```
 
-As shown earlier, fitTires, can accept names of data frames that exist in memory
-```{r eval=FALSE, include=TRUE}
-setFYPure2002() #setFXPure2002.wIA()
-
-
-dfFitSummary = fitTires("ABCrun1LatPreProccessed")
-dfFitSummary = fitTires(c("ABCrun1LatPreProccessed", "ABCrun2LatPreProccessed"))
-#c() joins objects into a vector
-```
-
-Last, but **most importantly**, fitTires() can **accept file paths**
+fitTires() can **accept file paths** or vectors of file paths.
+Make a vector of file paths with the `c()` function.
 ```{r eval=FALSE, include=TRUE}
 setFYPure2002() #setFXPure2002.wIA()
 
@@ -119,22 +117,21 @@ dfFitSummary = fitTires(c("C:/users/fsaer/data/rawData1.dat",
 
 ```
 
+
 We can also pass in a vector of **names** of the tire files in, to help us remember 
-what they are later.
+what they are later. These names will show up in the plots too.
 ```{r eval=FALSE, include=TRUE}
 setFYPure2002() #setFXPure2002.wIA()
 
 dfFitSummary = fitTires("ABCrun1LatPreProccessed", "ABC Tire on 13in Rim")
 dfFitSummary = fitTires(c("ABCrun1LatPreProccessed", "ABCrun2LatPreProccessed"), 
-                    c("ABC Tire1", "ABC Tire2" ))
+                    c("ABC Tire1 13in rim 10 psi", "ABC Tire2 10in rim 10psi" ))
 
 ```
 
-We were storing our results in dfFitSummary. We can view these by clicking on 
-the variable name in the environment window (usually top right), or with the 
-command `View(dfFitSummary)`. 
-
-We can also save this to a file with the following.
+When fitTires() runs with default settings, it will ask the user for a folder  
+to save the output to. 
+We can also save the output to a file with the following.
 ```{r eval=FALSE, include=TRUE}
 #Always use forward slashes in file paths in R!
 write.csv(dfFitSummary, "C:/TireFittingSummary.csv")
@@ -157,6 +154,28 @@ For a full list of options see the help file for the fitTires() function:
 ```{r eval=FALSE, include=TRUE}
 ?fitTires
 ```
+
+# Splitting Pressure into different files
+TTC data often comes with multiple pressures within a data file. 
+
+While a better splitting app is currently 
+being developed, the splitTireDataAndSave function works. It can do multiple files 
+very quickly. The new split files will be saved in the same folder that the 
+original files were in.
+
+The function returns a list of the new file names, which can be passed into 
+fitTires() for analysis. 
+
+```{r eval = FALSE}
+#Open window to pick files
+lRunNamesSplit = splitTireDataAndSave(P = 6.894*c(8,10,12,14), verbose = TRUE)
+# 
+#Input file paths, use forward slashes in file paths in R!
+#lRunNamesSplit = splitTireDataAndSave(c("C:/file1.dat", "C:/file2.dat"),
+                               P = 6.894*c(8,10,12,14), verbose = TRUE)
+
+```
+
 
 # Plotting Curves
 Feel free to switch to matlab or excel/vba from here. The equations 
@@ -219,22 +238,6 @@ myPlot = add_markers(myPlot, data = mGridPlot2, x = ~SA, y = ~FY,
     name = dfFitSummary[2, 1], marker = list(color = "red"))
 show(myPlot)
     
-```
-
-
-While a better splitting app is currently 
-being developed, the splitTireData function works. It can do multiple files 
-very quickly. The new split files will be saved in the same folder that the 
-original files were in.
-
-```{r eval = FALSE}
-#Open window to pick files
-lRunNamesSplit = splitTireDataAndSave(P = 6.894*c(8,10,12,14), verbose = TRUE)
-# 
-#Input file paths, use forward slashes in file paths in R!
-#lRunNamesSplit = splitTireDataAndSave(c("C:/file1.dat", "C:/file2.dat"),
-                               P = 6.894*c(8,10,12,14), verbose = TRUE)
-
 ```
 
 
