@@ -31,6 +31,31 @@ fitRound7FX = function() {
     sSummaryExportFolder = normalizePath("./plot2"))
 }
 
+fitWithoutSplitingPressure = function() {
+  # I just run through each line within this funciton by putting the cursor
+  # on it and hitting ctrl+enter
+  # I put them inside functions for organization and so the lines don't run
+  # if I accidentally hit run all (ctrl+shft+enter)
+
+  clearTirefittingrOptions()
+
+  options(
+    tirefittingr.coldCutoffTemp = 40,
+    tirefittingr.iParallelCores = 5,
+    tirefittingr.iEvolIterMax = NULL, #defaults to 300
+    tirefittingr.iDataPoints = NULL, #defaults to 4000
+    tirefittingr.sSavePlotPath = normalizePath("C:/Users/"),
+    tirefittingr.bPlotRunConditions = TRUE)
+
+  setFXPure2002.wIA() # Change to setFYPure2002() if you want to do FY
+  dfFitSummary = fitTires(
+                          sSummaryExportFolder = normalizePath("C:/Users/"))
+
+  setFYPure2002() # Change to setFYPure2002() if you want to do FY
+  dfFitSummary = fitTires(
+    sSummaryExportFolder = normalizePath("C:/Users/"))
+}
+
 ##########################################
 # The following are old and are just here for additional reference. Trying to
 # understand them mau confuse you more
