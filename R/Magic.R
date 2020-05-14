@@ -265,7 +265,7 @@ attr(FXPureMF52, "outputName") = "FX"
 #'   Race Car Vehicle Dynamics (Milliken)
 #' @keywords pacejka
 #' @family MagicFormulas
-FXPurePacejka2002.NoIA = function(FZ, SL, FZ0 = -1600, Vs = 40, V0 = 40,
+FXPurePacejka2002.NoIA = function(FZ, SL, FZ0 = -1600, Vs = 0, V0 = 40,
                                   parameters) {
 
     pC1 = parameters[1]
