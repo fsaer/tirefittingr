@@ -242,4 +242,6 @@ show(myPlot)
     
 ```
 
+# Checkout tirefittingr/docs/Samples.R For some quick fitting!
+
 

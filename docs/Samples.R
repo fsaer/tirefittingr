@@ -8,12 +8,39 @@ library(magrittr)
 library(tirefittingr)
 
 
+fitRound7FX = function() {
+  # I just run through each line within this funciton by putting the cursor
+  # on it and hitting ctrl+enter
+  # I put them inside functions for organization and so the lines don't run
+  # if I accidentally hit run all (ctrl+shft+enter)
+
+  #Select FX Files!!
+  svFiles7FX = splitTireDataAndSave(NULL, P = c(55.2,68.9,82.7,96.5))
+
+  clearTirefittingrOptions()
+  setFXPure2002.wIA() # Change to setFYPure2002() if you want to do FY
+  options(
+    tirefittingr.coldCutoffTemp = 40,
+    tirefittingr.iParallelCores = 5,
+    tirefittingr.iEvolIterMax = NULL, #defaults to 300
+    tirefittingr.iDataPoints = NULL, #defaults to 4000
+    tirefittingr.sSavePlotPath = normalizePath("./plots/"),
+    tirefittingr.bPlotRunConditions = TRUE)
+
+  dfFitSummary = fitTires(svFiles7FX$FileName, svFiles7FX$RunName,
+    sSummaryExportFolder = normalizePath("./plot2"))
+}
+
+##########################################
+# The following are old and are just here for additional reference. Trying to
+# understand them mau confuse you more
+##########################################
 fitRound8FY = function() {
 
-# first column has full file paths for each .dat data file
-# second column contains a name of the tire, compound, rim, pressure etc.
-path1 = "C:\\Users\\jim\\Documents\\R\\FittingTires\\listToFit.csv"
-runArray = read.csv(path1, stringsAsFactors = FALSE)
+  # first column has full file paths for each .dat data file
+  # second column contains a name of the tire, compound, rim, pressure etc.
+  path1 = "C:\\Users\\jim\\Documents\\R\\FittingTires\\listToFit.csv"
+  runArray = read.csv(path1, stringsAsFactors = FALSE)
 
   clearTirefittingrOptions()
   setFXPure2002()
@@ -47,8 +74,6 @@ runArray = read.csv(path1, stringsAsFactors = FALSE)
     runArray[,2],
     sSummaryExportFolder = normalizePath("./plot2"))
 }
-
-
 splitRound8FX = function() {
 
   # first column has full file paths for each .dat data file
@@ -57,8 +82,6 @@ splitRound8FX = function() {
   splitTireDataAndSave(svFiles, P = c(55.2,68.9,82.7,96.5))
 
 }
-
-
 fitRound8FX = function() {
 
   clearTirefittingrOptions()
@@ -75,7 +98,6 @@ fitRound8FX = function() {
     sSummaryExportFolder = normalizePath("./plot2"))
 
 }
-
 fitRound6FY = function() {
 
   # first column, named "Base" has full file paths for each .dat data file
@@ -89,7 +111,7 @@ fitRound6FY = function() {
   uniqueRuns = unique(runArray2$Base)
 
   toSplit = paste("D:/BACKUP SYNCS/FSAE/TTC Data/RunData/",
-                uniqueRuns, sep = "")
+                  uniqueRuns, sep = "")
 
   temp = splitTireDataAndSave(toSplit, P = 6.894*c(8,10,12,14))
 
@@ -117,4 +139,3 @@ fitRound6FY = function() {
 
 
 }
-
