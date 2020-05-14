@@ -183,6 +183,7 @@ FXPurePacejka2002.wIA = function(FZ, SL, IA, FZ0 = -1600, parameters) {
     pE4 = parameters[8]
     pH1 = parameters[9]
     pH2 = parameters[10]
+    #pH3 unused
     pK1 = parameters[11]
     pK2 = parameters[12]
     pK3 = parameters[13]
@@ -276,6 +277,7 @@ FXPurePacejka2002.NoIA = function(FZ, SL, FZ0 = -1600, Vs = 40, V0 = 40,
     pE4 = parameters[7]
     pH1 = parameters[8]
     pH2 = parameters[9]
+    #pH3 unused
     pK1 = parameters[10]
     pK2 = parameters[11]
     pK3 = parameters[12]
