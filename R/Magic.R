@@ -21,7 +21,7 @@
 #'   values. While you can fit to a dataset that only uses one IA value,
 #'   any model created this way will output garbage if any value of
 #'   IA is input other than the one it was originally fit at.
-#' @param Vs numeric. Tire Slip velocity in kph. Defaults to 40 kph.
+#' @param Vs numeric. Tire Slip velocity in kph. Defaults to 0 kph.
 #' @param FZ0 numeric. Nominal rated load in Newtons. Defaults to -1600N.
 #'   Typically the highest load used in the data.
 #'   See section 4.3.2 of Tyre and Vehicle Dynamics (Pacejka, 2002)
@@ -62,7 +62,7 @@
 #' @keywords pacejka
 #' @seealso \code{\link{FXPurePacejka2002.NoIA}}
 #' @family MagicFormulas
-FYPurePacejka2002 = function(FZ, SA, IA, Vs = 40,
+FYPurePacejka2002 = function(FZ, SA, IA, Vs = 0,
                              FZ0 = -1600, V0 = 40, parameters, scaleMu = 1) {
     pC1 = parameters[1]
     pD1 = parameters[2]
