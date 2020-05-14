@@ -501,7 +501,6 @@ splitTireDataAndSave = function(svRunPaths = NULL,
                                 nRowHeader = 3) {
 
   svRunPaths = checkTireRunList(svRunPaths) #NULL prompts user to select files
-  if (is.null(svRunNames)) svRunNames = basename(svRunPaths)
   # dfRunNamesFullPath = NULL,
 
   #    P = 6.89476*c(8.0, 10.0, 12.0, 14.0)
@@ -585,12 +584,17 @@ splitTireDataAndSave = function(svRunPaths = NULL,
           ".", tools::file_ext(sPathNameFull))
         dfDataPart = dplyr::select(dfDataPart, -"VarRollAvg")
 
+
         writeFileWithHeader(
           dfDataPart,
           file = sWriteSplitDataPath,
           sHeaderFile = sPathNameFull,
           nRowHeader = nRowHeader,
           verbose = verbose)
+
+        if (is.null(svRunNames)) {
+          svRunNames = basename(sWriteSplitDataPath)
+        }
 
         dfRunNamesOutput = plyr::rbind.fill(
           dfRunNamesOutput,
